@@ -1,4 +1,6 @@
-const RELEASES_URL = 'https://github.com/jackotom/hongguo-drama/releases';
+const UPDATE_FEED = Object.freeze({ provider: 'github', owner: 'songvedem260597', repo: 'hongguo-drama' });
+const RELEASE_REPOSITORY = `${UPDATE_FEED.owner}/${UPDATE_FEED.repo}`;
+const RELEASES_URL = `https://github.com/${RELEASE_REPOSITORY}/releases`;
 
 function versionParts(value) {
   const match = /^v?(\d+)\.(\d+)(?:\.(\d+))?$/.exec(String(value || ''));
@@ -20,4 +22,4 @@ function availableRelease(data, currentVersion) {
   };
 }
 
-module.exports = { availableRelease };
+module.exports = { UPDATE_FEED, RELEASE_REPOSITORY, RELEASES_URL, availableRelease };

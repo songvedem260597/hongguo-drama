@@ -20,7 +20,7 @@ const text = node => typeof node === 'string' || typeof node === 'number' ? Stri
   assert.match(appSource, /label: '红果账号'/);
   assert.match(appSource, /id: 'manager'[^\n]+\n\s*\{ id: 'account', label: '红果账号'/, 'account follows download management');
   const sidebarMenu = appSource.split('<nav className="sidebar-menu">')[1].split('</nav>')[0];
-  assert.match(sidebarMenu, /MENU\.filter\(\(item\) => item\.id !== 'settings'\)\.map/, 'main navigation includes the account entry');
+  assert.match(sidebarMenu, /localizedMenu\.filter\(\(item\) => item\.id !== 'settings'\)\.map/, 'main navigation includes the account entry');
   const sidebarFooter = appSource.split('<div className="sidebar-footer">')[1].split('</aside>')[0];
   assert.doesNotMatch(sidebarFooter, /account|红果账号/, 'footer must not duplicate the account entry');
   assert.match(sidebarFooter, /navigate\('settings'\)/, 'settings stays in the footer');

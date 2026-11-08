@@ -1561,10 +1561,10 @@ async function mount(file, api, props = {}, storage = null) {
   });
   await test('app navigation keeps visited pages and marks background pages inactive', async () => {
     const ui = await mount('../App', { getAppInfo: async () => ({ platform: 'darwin' }) });
-    await ui.flush(); ui.button('设置').props.onClick(); ui.render();
+    await ui.flush(); ui.button('Cài đặt').props.onClick(); ui.render();
     assert.ok(ui.find(n => n.props['data-page'] === 'browse')?.props.hidden, 'browse must remain mounted but hidden');
     assert.equal(ui.find(n => n.props['data-page'] === 'settings')?.props.hidden, false);
-    ui.button('我的剧库').props.onClick(); ui.render(); ui.button('发现短剧').props.onClick(); ui.render();
+    ui.button('Thư viện phim').props.onClick(); ui.render(); ui.button('Khám phá phim').props.onClick(); ui.render();
     const player = ui.find(n => n.props['data-page'] === 'player');
     assert.ok(player?.props.hidden, 'visited player must be retained');
     assert.equal(player.children[0]?.props.active, false, 'hidden player must receive inactive state');
@@ -1578,9 +1578,9 @@ async function mount(file, api, props = {}, storage = null) {
     const player = () => ui.find(n => n.props['data-page'] === 'player').children[0];
     const target = player().props.target;
     assert.equal(target.seriesId, 'A'); assert.equal(target.vidIndex, 2);
-    ui.button('下载管理').props.onClick(); ui.render();
+    ui.button('Quản lý tải xuống').props.onClick(); ui.render();
     assert.equal(player().props.target, target, 'background navigation must not reset playback initialization');
-    ui.button('我的剧库').props.onClick(); ui.render();
+    ui.button('Thư viện phim').props.onClick(); ui.render();
     assert.equal(player().props.target, target, 'returning must keep the same playback target');
     ui.unmount();
   });

@@ -17,6 +17,8 @@ const react = {
 const document = { pictureInPictureElement: null };
 const context = { document, module: { exports: {} }, navigator: { platform: 'Mac' }, require: name => {
   if (name === 'react') return react;
+  if (name === './menuLocale.mjs') return require('../src/menuLocale.mjs');
+  if (name === './i18n/domLocale.mjs') return { setDocumentLanguage() {} };
   if (name.endsWith('useStealthWindow')) return () => ({ stealthMode: false, toggleStealth() {} });
   return name;
 } };

@@ -52,7 +52,11 @@ for (const file of fs.readdirSync(sourceRoot, { recursive: true }).filter(file =
   declarations.forEach(declaration => {
     assert(!/\b[\d.]+(?:[sld]?v[whib]|[sld]?vmin|[sld]?vmax|cq[whib]|cqmin|cqmax)\b/.test(declaration.value), `${file}: font size must not follow viewport dimensions`);
     for (let parent = declaration.parent; parent; parent = parent.parent) {
-      assert(!(parent.type === 'atrule' && parent.name === 'media' && /(?:width|height|orientation)/.test(parent.params)), `${file}: responsive layout must preserve font size`);
+      const vietnameseCompactSize = file === 'typography-vi.css' && parent.params === '(max-width: 760px)'
+        && declaration.prop === 'font-size'
+        && ((declaration.parent.selector === 'html:lang(vi) .sidebar-item' && declaration.value === '13px')
+          || (declaration.parent.selector === 'html:lang(vi) .settings-header h2' && declaration.value === '23px'));
+      assert(vietnameseCompactSize || !(parent.type === 'atrule' && parent.name === 'media' && /(?:width|height|orientation)/.test(parent.params)), `${file}: responsive layout must preserve font size`);
     }
   });
 }

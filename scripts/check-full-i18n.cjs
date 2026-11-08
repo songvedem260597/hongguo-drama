@@ -1,5 +1,5 @@
 // UI smoke test for the built Windows Electron application, using an isolated QA profile.
-// Launch: dist/win-unpacked/红果短剧.exe --user-data-dir=<temp> --remote-debugging-port=9346 --remote-allow-origins=*
+// Launch: "dist/win-unpacked/Hongguo Open Downloader.exe" --user-data-dir=<temp> --remote-debugging-port=9346 --remote-allow-origins=*
 const assert = require('node:assert/strict');
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 async function run() {
@@ -56,10 +56,15 @@ async function run() {
     await evalJS('document.querySelector(".sidebar-footer button")?.click()');
     await waitFor(async () => (await settingsText()).includes('Máy chủ proxy'));
     assert.ok((await settingsText()).includes('Thư mục tải xuống'));
-    console.log('PASS comprehensive Settings body labels translated');
+    await waitFor(async () => (await settingsText()).includes('Nguồn quốc tế mặc định tắt'));
+    for (const source of ['DramaBox', 'ReelShort']) {
+      assert.equal(await evalJS(`document.querySelector('[aria-label="Nguồn ${source} (quốc tế)"]')?.checked`), false);
+    }
+    console.log('PASS Settings labels and default-off 6.3 sources in Vietnamese');
 
     await choose('zh');
     await waitFor(async () => (await menuText()).includes('发现短剧') && (await settingsText()).includes('网络代理'));
+    assert.ok((await settingsText()).includes('海外来源默认关闭'));
     assert.equal(await evalJS('document.title'), 'Hongguo Downloader');
     assert.equal(await evalJS('document.querySelector("#i18n-qa-fixture p").textContent'), '下载失败，请重试');
     assert.equal(await evalJS('document.querySelector("#i18n-qa-fixture input").placeholder'), '搜索短剧');

@@ -20,7 +20,7 @@ jobs:
         id: media
         with:
           path: ${{ runner.temp }}/linux-media
-          key: linux-x64-media-${{ hashFiles('scripts/build-ffmpeg-source-linux.sh', 'scripts/build-librempeg-source.sh') }}
+          key: linux-x64-media-${{ hashFiles('scripts/build-ffmpeg-source-linux.sh', 'scripts/build-librempeg-source.sh', 'scripts/librempeg-videotoolbox-prototype.patch') }}
       - if: steps.media.outputs.cache-hit != 'true'
         run: |
           bash scripts/build-ffmpeg-source-linux.sh "$RUNNER_TEMP/linux-media/ffmpeg" 4
@@ -30,10 +30,14 @@ jobs:
           cp "$RUNNER_TEMP/linux-media/ffmpeg/artifacts/bin/"* build/ffmpeg/linux-x64/
           cp "$RUNNER_TEMP/linux-media/librempeg/artifacts/bin/"* build/ffmpeg/linux-x64/
       - run: npm ci --no-audit --no-fund
-      - run: npm run build:linux
-      - run: xvfb-run -a node scripts/check-linux-appimage.cjs
+      - run: node scripts/prepare-electron.cjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - run: npm run build:linux -- --config.electronDist=.cache/electron
       - run: cp "$RUNNER_TEMP/linux-media/ffmpeg/artifacts/"*source.tar.gz "$RUNNER_TEMP/linux-media/librempeg/artifacts/"*source.tar.gz dist/
+      - run: xvfb-run -a node scripts/check-linux-appimage.cjs
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: linux-appimage-candidate
           path: |

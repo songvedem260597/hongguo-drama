@@ -50,6 +50,8 @@ function mountApp() {
   const api = new Proxy({ onNavigate(fn) { navigateEvent = fn; } }, { get: (o, k) => o[k] || (() => Promise.resolve({})) });
   const context = { module: { exports: {} }, window: { electronAPI: api }, navigator: { platform: 'Mac' }, require: name => {
     if (name === 'react') return react;
+    if (name === './menuLocale.mjs') return require('../src/menuLocale.mjs');
+    if (name === './i18n/domLocale.mjs') return { setDocumentLanguage() {} };
     if (name.endsWith('useStealthWindow')) return () => ({ stealthMode: false });
     return name;
   } };

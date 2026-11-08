@@ -19,9 +19,9 @@ function checkConfig() {
   assert.equal(lock.version, pkg.version);
   assert.equal(lock.packages[''].version, pkg.version);
   assert.equal(pkg.dependencies['electron-updater'], '6.8.9');
-  assert.deepEqual(pkg.build.publish, { provider: 'github', owner: 'jackotom', repo: 'hongguo-drama' });
+  assert.deepEqual(pkg.build.publish, { provider: 'github', owner: 'songvedem260597', repo: 'hongguo-drama' });
   assert.equal(pkg.build.nsis.artifactName.replace('${version}', pkg.version).replace('${ext}', 'exe'), setupName);
-  assert.equal(pkg.build.portable.artifactName.replace('${version}', pkg.version), '${productName}-' + releaseVersion + '-便携版.${ext}');
+  assert.equal(pkg.build.portable.artifactName.replace('${version}', pkg.version), `Hongguo-Downloader-${releaseVersion}-Portable.\${ext}`);
   assert(pkg.build.mac.target.some(target => target.target === 'zip' && target.arch.includes('arm64') && target.arch.includes('x64')));
   assert(pkg.build.mac.extraResources.some(resource => resource.from === 'build/app-update.yml' && resource.to === 'app-update.yml'), 'Mac directory builds must carry updater configuration');
   assert.notEqual(pkg.build.win.verifyUpdateCodeSignature, false);

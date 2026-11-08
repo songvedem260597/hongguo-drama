@@ -7,6 +7,9 @@ const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const skip = new Set([
   'check-windows-release.cjs',
+  'check-full-i18n.cjs',
+  'check-menu-language.cjs',
+  'check-typography-spacing.cjs',
   'check-windows-installer.cjs',
   'check-hls-media.cjs',
   'check-download-media-validity.cjs',

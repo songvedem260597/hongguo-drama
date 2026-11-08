@@ -145,7 +145,7 @@ async function realFootage(mediaDir, ffmpeg) {
 (async () => {
   assert.equal(process.platform, 'win32');
   assert.equal(process.arch, 'x64');
-  const portable = path.join(root, `dist/${pkg.build.productName}-${pkg.version.replace(/^(\d+\.\d+)\.0$/, '$1')}-便携版.exe`);
+  const portable = path.join(root, 'dist', pkg.build.portable.artifactName.replace('${ext}', 'exe'));
   result.authenticode = execFileSync('pwsh.exe', ['-NoProfile', '-Command', '(Get-AuthenticodeSignature -LiteralPath $env:HONGGUO_VERIFY_EXE).Status.ToString()'], { encoding: 'utf8', env: { ...process.env, HONGGUO_VERIFY_EXE: portable } }).trim();
   assert.equal(result.authenticode, 'NotSigned');
   const exe = path.join(packaged, pkg.build.productName + '.exe');

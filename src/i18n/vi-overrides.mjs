@@ -1,6 +1,15 @@
 // Editor-reviewed common UI translations; these take priority over automatic translations.
 // Keep original Chinese keys unchanged for lossless Vietnamese <-> Chinese switching.
 export default {
+  'ReelShort（海外）': 'ReelShort (quốc tế)',
+  'DramaBox（海外）': 'DramaBox (quốc tế)',
+  'ReelShort（海外）来源': 'Nguồn ReelShort (quốc tế)',
+  'DramaBox（海外）来源': 'Nguồn DramaBox (quốc tế)',
+  '海外来源默认关闭，仅提供官网公开播放内容。DramaBox 已验证真实搜索、分集和免费整集；部分网络需让官网与官方 CDN 在现有网络工具中走代理。ReelShort 仍为实验来源。': 'Nguồn quốc tế mặc định tắt và chỉ cung cấp nội dung công khai từ trang chính thức. DramaBox đã được kiểm tra tìm kiếm, danh sách tập và phát trọn tập miễn phí. Một số mạng cần proxy để truy cập trang chính thức và CDN. ReelShort vẫn đang thử nghiệm.',
+  '官网公开片单，按原顺序显示，每类最多 12 部；当前只提供首页快照，无后续分页。受地区限制，付费集请在官方平台确认权限。': 'Danh sách công khai theo thứ tự trên trang chính thức, tối đa 12 phim mỗi thể loại. Hiện chỉ có danh sách từ trang đầu. Một số nội dung bị giới hạn theo khu vực. Vui lòng kiểm tra quyền xem tập trả phí trên nền tảng chính thức.',
+  '等待同集在线播放缓存准备完成，避免重复下载和转换': 'Đang chờ chuẩn bị xong bộ nhớ đệm phát trực tuyến của tập này để tránh tải xuống và chuyển đổi lại',
+  '此来源已关闭，可在设置中重新开启': 'Nguồn này đang tắt. Bạn có thể bật lại trong Cài đặt',
+  '此来源暂不支持指定在线播放清晰度，请选择自动': 'Nguồn này chưa hỗ trợ chọn độ phân giải khi phát trực tuyến. Hãy chọn Tự động',
   '红果短剧': 'Phim ngắn Hongguo',
   '发现短剧': 'Khám phá phim',
   '热播推荐': 'Phim nổi bật',

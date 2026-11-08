@@ -49,6 +49,8 @@ function fixture({ exists = true, dismissed = false, saveError = '', resolveErro
   const module = { exports: {} };
   vm.runInNewContext(appSource, { module, exports: module.exports, window: { electronAPI: api }, navigator: {},
     require: name => name === 'react' ? react : name === './theme' ? { initializeTheme() {} }
+      : name === './menuLocale.mjs' ? { ...require('../src/menuLocale.mjs'), readMenuLanguage: () => 'zh' }
+      : name === './i18n/domLocale.mjs' ? { setDocumentLanguage() {} }
       : name === './components/useStealthWindow' ? { __esModule: true, default: () => ({}) } : component(name),
   });
   const render = () => { cursor = 0; tree = module.exports.default(); effects.splice(0).forEach(fn => fn()); };
