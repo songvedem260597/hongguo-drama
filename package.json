@@ -51,7 +51,7 @@
   },
   "build": {
     "appId": "io.github.jackotom.hongguo-drama-mac",
-    "productName": "红果短剧",
+    "productName": "Hongguo Downloader",
     "directories": {
       "output": "dist"
     },
@@ -106,14 +106,14 @@
       ]
     },
     "portable": {
-      "artifactName": "${productName}-6.2-便携版.${ext}"
+      "artifactName": "Hongguo-Downloader-6.2-Portable.${ext}"
     },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "红果短剧下载器",
+      "shortcutName": "Hongguo Downloader",
       "artifactName": "hongguo-downloader-6.2-win-x64-setup.${ext}"
     },
     "mac": {

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-export default function PageMenu({ items, page, onNavigate }) {
+export default function PageMenu({ items, page, onNavigate, switchPageLabel = '切换页面' }) {
   const [open, setOpen] = useState(false);
   const root = useRef(null);
   const trigger = useRef(null);
@@ -21,7 +21,7 @@ export default function PageMenu({ items, page, onNavigate }) {
     onKeyDown={event => {
       if (event.key === 'Escape' && open) { event.preventDefault(); event.stopPropagation(); close(); }
     }}>
-    <button className="toolbar-page-trigger" type="button" ref={trigger} aria-label="切换页面"
+    <button className="toolbar-page-trigger" type="button" ref={trigger} aria-label={switchPageLabel}
       aria-haspopup="menu" aria-expanded={open} aria-controls={open ? 'toolbar-page-menu' : undefined}
       title={items.find(item => item.id === page)?.label}
       onClick={() => open ? close() : show(0)}
@@ -33,7 +33,7 @@ export default function PageMenu({ items, page, onNavigate }) {
       <span>{items.find(item => item.id === page)?.label}</span>
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
     </button>
-    {open && <div id="toolbar-page-menu" role="menu" aria-label="切换页面" onKeyDown={event => {
+    {open && <div id="toolbar-page-menu" role="menu" aria-label={switchPageLabel} onKeyDown={event => {
       const buttons = [...event.currentTarget.querySelectorAll('[role="menuitem"]')];
       const index = buttons.indexOf(document.activeElement);
       const next = { ArrowDown: (index + 1) % buttons.length, ArrowUp: (index - 1 + buttons.length) % buttons.length, Home: 0, End: buttons.length - 1 }[event.key];

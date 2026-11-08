@@ -1,0 +1,173 @@
+/* Readable Windows typography and consistent rhythm for Vietnamese UI.
+ * Uses Windows system fonts already available on the machine: no download needed.
+ * Keep media canvases, video overlays and original Chinese layout untouched.
+ */
+html:lang(vi) {
+  --vi-font: "Segoe UI", "Segoe UI Variable Text", Arial, "Noto Sans", sans-serif;
+  --vi-space-1: 6px;
+  --vi-space-2: 10px;
+  --vi-space-3: 16px;
+  --vi-space-4: 24px;
+}
+
+html:lang(vi) body {
+  font-family: var(--vi-font);
+  font-size: 14px;
+  line-height: 1.62;
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html:lang(vi) :is(button, input, select, textarea) {
+  font-family: var(--vi-font);
+  letter-spacing: 0;
+}
+
+/* Sidebar labels are longer in Vietnamese, so preserve breathing room and wrapping. */
+html:lang(vi) .sidebar { width: 242px; }
+html:lang(vi) .sidebar-brand { padding: 13px 16px 22px; gap: 12px; min-width: 0; }
+html:lang(vi) .sidebar-brand > div:last-child { min-width: 0; }
+html:lang(vi) .brand-text {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+html:lang(vi) .brand-sub { font-size: 11px; line-height: 1.4; margin-top: 3px; }
+html:lang(vi) .sidebar-menu { gap: 4px; padding: 0 12px; }
+html:lang(vi) .sidebar-group-label { font-size: 11.5px; padding: 2px 12px 8px; }
+html:lang(vi) .sidebar-item {
+  min-height: 43px;
+  padding: 10px 12px;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 1.45;
+  letter-spacing: 0;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+html:lang(vi) .sidebar-item span { min-width: 0; }
+html:lang(vi) .sidebar-footer { padding: 12px; }
+html:lang(vi) .footer-note { font-size: 11px; padding: 14px 12px 5px; margin-top: 8px; }
+
+/* Unified page gutters and comfortable text line height. */
+html:lang(vi) .main-content { padding: 30px 34px 44px; }
+html:lang(vi) .window-toolbar { padding-inline: 34px; gap: 16px; }
+html:lang(vi) .toolbar-location { font-size: 13px; line-height: 1.45; }
+html:lang(vi) .toolbar-caption { font-size: 12px; }
+html:lang(vi) .toolbar-actions { gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+html:lang(vi) :is(h2, .browse-title h2, .hero-text h2, .settings-header h2, .dm-title h2, .player-title h2) {
+  font-size: 27px;
+  line-height: 1.33;
+  font-weight: 700;
+  letter-spacing: 0;
+  overflow-wrap: break-word;
+}
+html:lang(vi) :is(.page-description, .hero-text p) {
+  font-size: 14px;
+  line-height: 1.7;
+  margin-top: 8px;
+}
+
+/* Buttons and inputs: legible diacritics, consistent alignment and tap targets. */
+html:lang(vi) .btn {
+  min-height: 39px;
+  padding: 8px 14px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  gap: 8px;
+  white-space: normal;
+  text-align: center;
+}
+html:lang(vi) .btn-sm { min-height: 34px; padding: 6px 11px; font-size: 13px; }
+html:lang(vi) .btn-chip { padding: 7px 12px; font-size: 13px; line-height: 1.45; }
+html:lang(vi) .input-field { height: 42px; padding: 9px 13px; font-size: 14px; line-height: 1.5; }
+html:lang(vi) textarea.input-field { min-height: 88px; height: auto; }
+html:lang(vi) .icon-btn { width: 36px; height: 36px; }
+html:lang(vi) .alert { font-size: 13.5px; line-height: 1.65; }
+
+/* Discover / search / download grids. */
+html:lang(vi) .browse-header { gap: 14px 20px; margin-bottom: 25px; }
+html:lang(vi) .browse-header-right { gap: 8px 12px; }
+html:lang(vi) .browse-cats { gap: 19px; margin-bottom: 16px; }
+html:lang(vi) .browse-cat { font-size: 14px; line-height: 1.5; padding-bottom: 10px; }
+html:lang(vi) .browse-genres { gap: 7px; margin-bottom: 24px; }
+html:lang(vi) .genre-chip { min-height: 32px; padding: 6px 11px; font-size: 13px; line-height: 1.45; }
+html:lang(vi) .browse-grid { gap: 24px 18px; }
+html:lang(vi) .browse-card-title { font-size: 14px; line-height: 1.55; letter-spacing: 0; }
+html:lang(vi) .browse-tag { font-size: 12px; }
+html:lang(vi) .browse-stat, html:lang(vi) .browse-nav-label { font-size: 13px; }
+html:lang(vi) .hongguo-hero { margin-bottom: 26px; }
+html:lang(vi) .hongguo-card { padding: 23px 25px; margin-bottom: 22px; }
+html:lang(vi) .card-header-title { font-size: 16px; line-height: 1.5; margin-bottom: 17px; }
+html:lang(vi) .mode-tabs { gap: 5px; margin-bottom: 20px; }
+html:lang(vi) .mode-tab { font-size: 13.5px; line-height: 1.5; padding: 9px 15px; }
+html:lang(vi) .input-group { gap: 10px; }
+html:lang(vi) .search-count { font-size: 13px; margin: 24px 0 14px; }
+html:lang(vi) .search-grid { gap: 14px; }
+html:lang(vi) .search-card { gap: 14px; padding: 14px; }
+html:lang(vi) .search-card-title { font-size: 14.5px; line-height: 1.5; }
+html:lang(vi) .series-tags { gap: 8px 14px; }
+html:lang(vi) .series-title { letter-spacing: 0; line-height: 1.42; }
+html:lang(vi) .batch-action-row { gap: 8px 10px; }
+html:lang(vi) .controls-row { gap: 12px 16px; }
+html:lang(vi) .episode-grid { gap: 9px; }
+html:lang(vi) .episode-card { min-height: 48px; padding: 11px 12px; }
+html:lang(vi) .episode-num { font-size: 13px; }
+
+/* More coherent Settings alignment and spacing for Vietnamese sentences. */
+html:lang(vi) .settings-header { gap: 13px; margin-bottom: 24px; align-items: flex-start; }
+html:lang(vi) .settings-header h2 { font-size: 25px; }
+html:lang(vi) .settings-container { max-width: 900px; }
+html:lang(vi) .settings-card { padding-inline: 24px; }
+html:lang(vi) .settings-card > .settings-group { padding: 20px 0; }
+html:lang(vi) .settings-group { gap: 10px; min-width: 0; }
+html:lang(vi) .settings-label { font-size: 14px; line-height: 1.5; margin-bottom: 3px; }
+html:lang(vi) .settings-hint { font-size: 13px; line-height: 1.7; overflow-wrap: anywhere; }
+html:lang(vi) .settings-footer { padding: 18px 0; }
+html:lang(vi) .proxy-switch-row { align-items: flex-start; gap: 10px; line-height: 1.6; }
+html:lang(vi) .proxy-switch-text { min-width: 0; }
+html:lang(vi) .builtin-source-row { gap: 14px; font-size: 13.5px; }
+html:lang(vi) .shortcut-settings-list { gap: 0 20px; }
+
+/* Download manager is information-dense; give status and action labels space. */
+html:lang(vi) .dm-header { gap: 16px 20px; margin-bottom: 23px; }
+html:lang(vi) .dm-toolbar { gap: 10px; padding-bottom: 18px; }
+html:lang(vi) .dm-task { padding-block: 18px; }
+html:lang(vi) .dm-task-title { font-size: 14px; line-height: 1.5; }
+html:lang(vi) .dm-task-actions { gap: 5px; }
+html:lang(vi) .dm-usage-notice { font-size: 13.5px; line-height: 1.7; }
+html:lang(vi) .dm-stats { gap: 6px; }
+html:lang(vi) .stat { font-size: 12px; }
+
+/* Portrait navigation: two-line Vietnamese labels without clipping. */
+html:lang(vi) .layout-portrait .compact-navigation { gap: 5px; padding: 8px; }
+html:lang(vi) .compact-navigation button {
+  min-height: 60px;
+  font-size: 11.5px;
+  line-height: 1.28;
+  gap: 5px;
+  padding: 6px 3px;
+  white-space: normal;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+html:lang(vi) .compact-navigation button span { min-width: 0; }
+
+@media (max-width: 1060px) {
+  html:lang(vi) .sidebar { width: 216px; }
+  html:lang(vi) .main-content { padding: 26px 26px 38px; }
+  html:lang(vi) .window-toolbar { padding-inline: 26px; }
+}
+@media (max-width: 760px) {
+  html:lang(vi) .sidebar { width: 188px; }
+  html:lang(vi) .sidebar-brand { padding-inline: 12px; }
+  html:lang(vi) .sidebar-item { gap: 9px; padding-inline: 8px; font-size: 13px; }
+  html:lang(vi) .main-content { padding: 22px 18px 30px; }
+  html:lang(vi) .window-toolbar { padding-inline: 18px; }
+  html:lang(vi) .hongguo-card { padding: 18px; }
+  html:lang(vi) .settings-card { padding-inline: 17px; }
+  html:lang(vi) .settings-header h2 { font-size: 23px; }
+}

@@ -12,7 +12,7 @@ const { app, BrowserWindow, BaseWindow, View, WebContentsView, globalShortcut, i
 const path = require('path');
 const IS_PREVIEW = require('./package.json').name === 'hongguo-experience-preview';
 if (IS_PREVIEW) {
-  app.setName('红果短剧预览');
+  app.setName('Hongguo Downloader Preview');
   if (!app.commandLine.hasSwitch('user-data-dir')) {
     app.setPath('userData', path.join(app.getPath('appData'), 'hongguo-experience-preview'));
   }
@@ -67,7 +67,7 @@ const rendererSecurity = require('./src/native/renderer-security').createRendere
 const attachFloatingPlayerWindow = require('./src/native/floating-player-window');
 const APP_VERSION = app.getVersion() || '1.0.0';
 
-const APP_TITLE = IS_PREVIEW ? '红果短剧预览' : '红果短剧';
+const APP_TITLE = IS_PREVIEW ? 'Hongguo Downloader Preview' : 'Hongguo Downloader';
 const { createStealthController } = require('./src/native/stealth-window');
 const { createBossKeyController } = require('./src/native/boss-key');
 
@@ -1213,7 +1213,7 @@ function getSearchWindow(background = false) {
     width: 1100,
     height: 820,
     show: false,
-    title: '搜索 - 红果短剧',
+    title: 'Tìm kiếm - Hongguo',
     autoHideMenuBar: true,
     webPreferences: {
       contextIsolation: true,

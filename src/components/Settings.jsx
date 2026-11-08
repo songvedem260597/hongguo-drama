@@ -8,6 +8,7 @@ import CustomSources from './CustomSources';
 import BuiltinSources from './BuiltinSources';
 import AnnouncementSettings from './AnnouncementSettings';
 import { Settings, Folder, Check, Globe, X, RefreshCw, AlertCircle } from './icons';
+import { getMenuLabels } from '../menuLocale.mjs';
 
 
 const FORMAT_PRESETS = [
@@ -47,7 +48,8 @@ function describeProxy(settings) {
   return { on: true, text: '接口/下载跟随启动环境，浏览器跟随系统' };
 }
 
-function SettingsPage({ active = true, preview = false, appInfo = null }) {
+function SettingsPage({ active = true, preview = false, appInfo = null, language = 'vi', onLanguageChange }) {
+  const menuLabels = getMenuLabels(language);
   const danmakuSource = useDanmakuSource();
   const [settings, setSettings] = useState(null);
   const [saved, setSaved] = useState(false);
@@ -242,9 +244,20 @@ function SettingsPage({ active = true, preview = false, appInfo = null }) {
     <div className="settings-container">
       <div className="settings-header">
         <Settings size={22} />
-        <div><h2>设置</h2><p className="page-description">让下载、保存和网络连接，按你的习惯运行。</p></div>
+        <div><h2>{menuLabels.settingsTitle}</h2><p className="page-description">{menuLabels.settingsDescription}</p></div>
       </div>
 
+      <section className="settings-card" aria-label={menuLabels.languageTitle}>
+        <div className="settings-group" style={{ padding: '14px 0' }}>
+          <label className="settings-label" htmlFor="menu-language">{menuLabels.languageTitle}</label>
+          <select id="menu-language" className="input-field select-field" aria-label={menuLabels.languageAria}
+            value={language} onChange={event => onLanguageChange?.(event.target.value)}>
+            <option value="vi">Tiếng Việt</option>
+            <option value="zh">简体中文</option>
+          </select>
+          <p className="settings-hint">{menuLabels.languageHint}</p>
+        </div>
+      </section>
       <section className="settings-card" aria-label="外观设置"><AppearanceSettings active={active} /></section>
       <ShortcutSettings active={active} />
       <section className="settings-card" aria-label="画中画小窗设置">
