@@ -191,7 +191,7 @@ function DramaFeed({ active = true, onNavigate }) {
       <div><h2>热播推荐</h2><p className="page-description">从热播榜和来源片单，遇见下一部故事。</p></div>
       <div className="drama-feed-actions">
         {!random && <label className="source-control">来源<select className="input-field" aria-label="推荐来源" value={source} onChange={event => switchFeed(event.target.value, 'hot-drama')}>
-          {mediaSources.map(({ id, label }) => <option key={id} value={id}>{label}</option>)}
+          {mediaSources.map(({ id, label, custom }) => <option key={id} value={id} data-i18n-skip={custom}>{label}</option>)}
         </select></label>}
         {ranking && !random && <label className="source-control">目录线路<select className="input-field" aria-label="推荐目录线路" value={catalogChannel} onChange={event => switchCatalogChannel(event.target.value)}><option value="app">App（快速 · 部分片单）</option><option value="web">官网（完整目录）</option></select></label>}
         <button className="btn btn-outline" disabled={!random && (sourcesLoading || !source || (loading && !items.length))} onClick={() => random ? setRandomRefresh(value => value + 1) : loadList(true)}><RefreshCw size={15} />刷新片单</button>

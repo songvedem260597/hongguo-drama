@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Play, Pause, Settings as SettingsIcon, PictureInPicture } from './icons';
+import { Play, Pause, Settings as SettingsIcon, PictureInPicture, MessageSquare } from './icons';
 import './PlayerControls.css';
 import { DEFAULT_SHORTCUTS, SHORTCUT_ACTIONS, formatShortcut, ignoresPlaybackShortcut, shortcutKey } from '../shortcuts';
 import { VideoEnhancementControls } from './VideoEnhancement';
@@ -57,7 +57,7 @@ export default function PlayerControls({ danmaku, enhancement, shortcuts = DEFAU
   useEffect(() => {
     if (!windowFill) return;
     const stageWindow = stageRef.current?.ownerDocument?.defaultView || window;
-    const escape = event => { if (event.key === 'Escape' && !event.defaultPrevented && !event.target.closest?.('.danmaku-settings')) onWindowFill(false); };
+    const escape = event => { if (event.key === 'Escape' && !event.defaultPrevented && !event.target.closest?.('.danmaku-settings, select:open')) onWindowFill(false); };
     stageWindow.addEventListener('keydown', escape);
     return () => stageWindow.removeEventListener('keydown', escape);
   }, [windowFill, onWindowFill, floating, stageRef]);
@@ -189,7 +189,7 @@ export default function PlayerControls({ danmaku, enhancement, shortcuts = DEFAU
     speedRef.current?.focus();
     const outside = event => { if (!menuRef.current?.contains(event.target)) setMenuOpen(false); };
     const escape = event => {
-      if (event.key !== 'Escape') return;
+      if (event.key !== 'Escape' || event.target?.closest?.('select:open')) return;
       event.preventDefault(); event.stopPropagation();
       setMenuOpen(false); menuButtonRef.current?.focus();
     };
@@ -302,10 +302,10 @@ export default function PlayerControls({ danmaku, enhancement, shortcuts = DEFAU
         <span className="player-controls-time">{formatTime(media.time)} / {formatTime(media.duration)}</span>
         {danmaku && <div className="player-controls-danmaku">
           <button type="button" data-player-menu className={`danmaku-icon-button ${danmaku.enabled ? 'danmaku-enabled' : ''}`} aria-label={`${danmaku.enabled ? '关闭' : '开启'}${danmaku.sourceKind === 'official' ? '时间轴弹幕' : '本集评论'}`} aria-pressed={danmaku.enabled}
-            title={danmaku.supported ? (danmaku.sourceKind === 'official' ? '按视频时间展示时间轴弹幕' : '依次展示本集评论，与视频时间无对应') : '仅红果来源的当前集支持弹幕'} disabled={!danmaku.supported} onClick={danmaku.toggle}><span className="danmaku-symbol" aria-hidden="true">弹<span className="danmaku-state-mark" /></span></button>
+            title={danmaku.supported ? (danmaku.sourceKind === 'official' ? '按视频时间展示时间轴弹幕' : '依次展示本集评论，与视频时间无对应') : '仅红果来源的当前集支持弹幕'} disabled={!danmaku.supported} onClick={danmaku.toggle}><span className="danmaku-symbol" aria-hidden="true"><MessageSquare size={16} /><span className="danmaku-state-mark" /></span></button>
           <button type="button" data-player-menu className="danmaku-icon-button" ref={danmakuButtonRef} aria-label="弹幕设置" title="弹幕来源与显示设置" aria-haspopup="dialog" aria-expanded={danmakuOpen}
             onClick={() => { setMenuOpen(false); setSelectionPanel(null); setDanmakuOpen(open => !open); }}>
-            <span className="danmaku-symbol" aria-hidden="true">弹<span className="danmaku-settings-mark"><SettingsIcon size={10} /></span></span>
+            <span className="danmaku-symbol" aria-hidden="true"><MessageSquare size={16} /><span className="danmaku-settings-mark"><SettingsIcon size={10} /></span></span>
           </button>
           {danmakuOpen && <DanmakuSettings danmaku={danmaku} onClose={closeDanmaku} panelRef={danmakuPanelRef} maxHeight={danmakuHeight} />}
         </div>}

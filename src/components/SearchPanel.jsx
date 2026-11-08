@@ -312,7 +312,7 @@ function SearchPanel({ onSelectSeries, onSwitchToInput, active = true }) {
       <div className="card-header-title">
         <Search size={18} />
         <span>搜索短剧</span>
-        <label className="source-control">来源<select className="input-field" aria-label="短剧来源" value={source} onChange={(e) => switchSource(e.target.value)}><option value="all">全部来源</option>{mediaSources.map(({ id, label }) => <option key={id} value={id}>{label}</option>)}</select></label>
+        <label className="source-control">来源<select className="input-field" aria-label="短剧来源" value={source} onChange={(e) => switchSource(e.target.value)}><option value="all">全部来源</option>{mediaSources.map(({ id, label, custom }) => <option key={id} value={id} data-i18n-skip={custom}>{label}</option>)}</select></label>
       </div>
 
       {sourcesError && <p className="settings-hint" role="status">来源列表更新失败，暂用上次列表；可在设置重新保存来源后重试。</p>}

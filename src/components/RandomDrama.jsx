@@ -100,7 +100,7 @@ export default function RandomDrama({ active, refreshKey = 0, onNavigate }) {
     <div className="random-drama-toolbar">
       <p>不想挑？把下一部交给短剧签筒。</p>
       <label>抽取范围<select value={source} onChange={event => setSource(event.target.value)}>
-        <option value="all">全部来源</option>{mediaSources.map(({ id, label }) => <option key={id} value={id}>{label}</option>)}
+        <option value="all">全部来源</option>{mediaSources.map(({ id, label, custom }) => <option key={id} value={id} data-i18n-skip={custom}>{label}</option>)}
       </select></label>
     </div>
     <div className={`random-drama-stage ${selected ? 'has-result' : ''}`}>

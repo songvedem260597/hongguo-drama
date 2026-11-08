@@ -1666,7 +1666,6 @@ function Player({ target, onNavigate, onSeriesSelected, onFloatingChange, active
           <button aria-pressed={cacheNext} className={`btn btn-outline ${cacheNext ? 'btn-autonext-on' : ''}`}
             disabled={qualityLoading || playbackSettingSaving}
             onClick={() => savePlaybackSetting('cache_next_episode', !cacheNext, setCacheNext)}
-            style={{ whiteSpace: 'nowrap' }}
             title="开始播放后最多预缓存后续两集，减少连续切集等待；会使用网络流量">
             <Download size={15} />缓存后续 2 集 {cacheNext ? '开' : '关'}
           </button>

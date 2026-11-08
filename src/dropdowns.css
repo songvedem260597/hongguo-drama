@@ -1,0 +1,96 @@
+/* Keep the native select behavior and theme its trigger and picker together. */
+@supports (appearance: base-select) {
+  select:not([multiple], [size]),
+  select:not([multiple], [size])::picker(select) {
+    appearance: base-select;
+  }
+
+  select:not([multiple], [size]) {
+    column-gap: 8px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    text-overflow: ellipsis;
+  }
+
+  select:not([multiple], [size]):is(:hover, :open):enabled {
+    border-color: var(--accent);
+  }
+
+  select:not([multiple], [size]):disabled {
+    opacity: .55;
+    cursor: not-allowed;
+  }
+
+  select::picker-icon {
+    color: var(--text-secondary);
+    flex: none;
+  }
+
+  select:open::picker-icon {
+    color: var(--accent-text);
+    rotate: 180deg;
+  }
+
+  select:not([multiple], [size])::picker(select) {
+    max-inline-size: min(30rem, calc(100dvw - 24px));
+    max-block-size: min(20rem, 60dvh);
+    margin-block: 4px;
+    padding: 4px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-lg);
+    overscroll-behavior: contain;
+  }
+
+  select:not([multiple], [size]) option {
+    min-block-size: 34px;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border-radius: var(--radius-sm);
+    overflow-wrap: anywhere;
+  }
+
+  select:not([multiple], [size]) option:is(:hover, :focus-visible):enabled {
+    background: var(--bg-hover);
+  }
+
+  select:not([multiple], [size]) option:checked {
+    background: var(--accent-soft);
+    color: var(--accent-text);
+    font-weight: 600;
+  }
+
+  select:not([multiple], [size]) option::checkmark {
+    order: 1;
+    margin-inline-start: auto;
+  }
+}
+
+/* Menus with richer content use the same border, corners and elevation. */
+#toolbar-page-menu,
+.series-picker,
+.player-controls-menu,
+.danmaku-settings {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+}
+
+.player-controls-popover {
+  border: 1px solid #ffffff24;
+  border-radius: var(--radius);
+}
+
+.series-picker-btn.open,
+.toolbar-page-trigger[aria-expanded="true"] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-text);
+}
+
+#toolbar-page-menu button {
+  white-space: normal;
+}

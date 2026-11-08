@@ -154,7 +154,7 @@ export default function CommentDanmaku({ videoRef, source, available, danmaku })
 export function DanmakuSettings({ danmaku, onClose, panelRef, maxHeight }) {
   const { settings, update } = danmaku;
   return <div className="danmaku-settings" ref={panelRef} role="dialog" aria-label="弹幕设置" data-player-menu style={{ maxHeight }}
-    onKeyDown={event => { if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); onClose(); } }}>
+    onKeyDown={event => { if (event.key === 'Escape' && !event.target?.closest?.('select:open')) { event.preventDefault(); event.stopPropagation(); onClose(); } }}>
     <div className="danmaku-settings-heading"><strong>{danmaku.sourceKind === 'official' ? '时间轴弹幕' : '本集评论'}</strong><button type="button" aria-label="关闭弹幕设置" onClick={onClose}>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
     </button></div>

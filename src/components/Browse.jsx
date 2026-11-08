@@ -535,7 +535,7 @@ function Browse({ onNavigate, active = true }) {
           <div><h2>发现短剧</h2><p className="page-description">挑一部喜欢的，让故事继续。</p></div>
         </div>
         <div className="browse-header-right">
-          <label className="source-control">来源<select className="input-field" aria-label="短剧来源" value={source} onChange={(e) => switchSource(e.target.value)}>{mediaSources.map(({ id, label }) => <option key={id} value={id}>{label}</option>)}</select></label>
+          <label className="source-control">来源<select className="input-field" aria-label="短剧来源" value={source} onChange={(e) => switchSource(e.target.value)}>{mediaSources.map(({ id, label, custom }) => <option key={id} value={id} data-i18n-skip={custom}>{label}</option>)}</select></label>
           {source === 'hongguo' && <label className="source-control">目录线路<select className="input-field" aria-label="红果目录线路" value={catalogChannel} onChange={(e) => switchCatalogChannel(e.target.value)}><option value="app">App（快速 · 部分片单）</option><option value="web">官网（完整目录）</option></select></label>}
           <button className="btn btn-primary" onClick={() => onNavigate('download')}><Search size={15} />搜索短剧</button>
           <button className="btn btn-outline" disabled={loading || sourcesLoading || meta.cursorExpired || page !== displayedPage || !hasNextBatch} onClick={() => gotoPage(displayedPage + 1)}><RefreshCw size={15} />换一批</button>

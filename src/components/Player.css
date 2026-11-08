@@ -747,7 +747,13 @@
 .player-online-quality-row[hidden] { display: none; }
 .player-online-quality-row .player-download-quality { flex-wrap: nowrap; }
 .layout-landscape .player-online-quality-row { margin-block: 12px 24px; }
-.player-header .player-header-right { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr)); gap: 8px; }
+.player-header .player-header-right {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr));
+  grid-auto-rows: 1fr;
+  align-items: stretch;
+  gap: 8px;
+}
 .player-header-right .player-series-actions { display: contents; }
 .player-header .player-header-right .btn { width: 100%; min-width: 0; min-height: 36px; padding: 6px 8px; font-size: 12px; gap: 7px; justify-content: center; white-space: normal; }
 .player-header-right .btn svg { width: 15px; height: 15px; flex-shrink: 0; }

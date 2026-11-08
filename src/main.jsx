@@ -5,6 +5,7 @@ import App from './App';
 import ErrorBoundary from './components/ErrorBoundary';
 import './index.css';
 import './typography-vi.css';
+import './dropdowns.css';
 import { initializePosterSize } from './theme';
 import { installDomLocalization } from './i18n/domLocale.mjs';
 

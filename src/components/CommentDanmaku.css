@@ -3,7 +3,7 @@
 .comment-danmaku-static .comment-danmaku-item { max-width: calc(100% - 24px); overflow: hidden; text-overflow: ellipsis; will-change: auto; }
 .player-controls-danmaku { display: flex; align-items: center; gap: 2px; }
 .player-controls .danmaku-icon-button { flex: none; }
-.danmaku-symbol { position: relative; display: block; width: 18px; height: 20px; font-size: 16px; line-height: 18px; font-weight: 500; }
+.danmaku-symbol { position: relative; display: grid; place-items: center; width: 18px; height: 20px; }
 .danmaku-state-mark { position: absolute; right: -1px; bottom: -1px; width: 7px; height: 5px; border-radius: 4px; background: currentColor; opacity: .5; }
 .danmaku-enabled .danmaku-state-mark { background: var(--accent); opacity: 1; }
 .danmaku-settings-mark { position: absolute; right: -3px; bottom: -2px; display: flex; padding: 1px; border-radius: 50%; background: #242424; }

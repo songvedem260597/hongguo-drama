@@ -27,6 +27,20 @@ test('server-provided categories and Chinese view counts show in Vietnamese', ()
   assert.equal(translateUiString('100亿补贴'), '100亿补贴');
 });
 
+test('player labels use Vietnamese terms for video and comments', () => {
+  assert.equal(translateUiString('原画'), 'Ảnh gốc');
+  assert.equal(translateUiString('播放速度'), 'Tốc độ phát');
+  assert.equal(translateUiString('开启时间轴弹幕'), 'Bật bình luận chạy');
+  assert.equal(translateUiString('弹幕设置'), 'Cài đặt bình luận chạy');
+});
+
+test('built-in sources show brand names in Vietnamese', () => {
+  for (const [brand, displayName] of [['红果', 'Hongguo'], ['西饭', 'Xifan'], ['河马', 'Hema']]) {
+    assert.equal(translateUiString(brand), displayName);
+    assert.equal(translateUiString(`${brand}短剧`), displayName);
+  }
+});
+
 test('movie title not present in the known UI dictionary remains untouched', () => {
   assert.equal(translateUiString('这不是UI里的新电影名字'), '这不是UI里的新电影名字');
 });
