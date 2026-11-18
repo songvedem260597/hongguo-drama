@@ -1,7 +1,7 @@
 # Local playback compatibility check, 2026-11-19
 
 The desktop fork integrates the playback-only Android v5 signing and player
-model request changes from upstream c33ab400 (7.5/7.6 source). It retains the
+model request changes from upstream c33ab40 (7.5/7.6 source). It retains the
 existing UI, local language selection and bundled Account Hub Studio fonts.
 
 Upstream release reference
