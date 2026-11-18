@@ -172,3 +172,14 @@ https://github.com/dawei233/hongguo-drama
 
 二十四、4.3 网页扫码登录与 APP 观看记录（已发布）
 新增独立「登录管理」页，通过红果官网二维码登录账号，读取最近 50 部 APP 观看记录并支持剧名搜索和继续播放。登录态使用系统安全存储加密，与普通数据备份分离；不接入手机号验证码。APP 记录不混入本机观看历史，也不批量导入或上传。扫码协议参考 tsukiyo-zero/hongguoTV（GPL-3.0-only）并保留来源说明。正式发行与验证边界见 docs/release-4.3.md。
+
+二十六、7.5 Android v5 播放请求兼容
+播放签名 playback-v5.js 改编自 N3urda/hongguoTV（GPL-3.0-only）提交
+18c37c2afd0567520135abcae312352542f09083 的 Signer.kt、AesV3.kt、V5Constants.kt；
+请求结构参考同提交 MobilePlayback.kt，合成回归向量来自 signing-v5-f13.json、
+signing-v5-carrier.json。保留上游 drpys 22261adfa31435e3b3ef5a730b8a2a75bcaf1715 归属。
+感谢 WEP-56 在 Issue #162 提供 PR #60 线索及上游贡献者的纯代码实现。
+仅移植本地 JavaScript 播放签名与模型协议，不包含官方 SDK、JNI、字节码解释器、
+远程签名服务、捕获的设备会话或任何第三方 PolyForm 实现。
+最终 query、实际 gzip 正文及统一时间戳共同签名，原分集、媒体和解密校验保留。
+Upstream release evidence: https://github.com/jackotom/hongguo-drama/releases/tag/v7.5

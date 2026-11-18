@@ -707,7 +707,7 @@ function Browse({ onNavigate, active = true }) {
             </div>
 
             {detailLoading && (
-              <div className="browse-loading">
+              <div className="browse-loading browse-drawer-loading" role="status">
                 <RefreshCw size={18} className="spin" />
                 <span>正在拉取全集…</span>
               </div>
