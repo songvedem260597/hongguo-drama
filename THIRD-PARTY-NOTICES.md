@@ -213,3 +213,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## Bundled interface fonts
+
+Be Vietnam Pro, Playfair Display and JetBrains Mono are bundled as local WOFF2 files.
+They are distributed under the SIL Open Font License 1.1. The full copyright and
+license notices are included in src/fonts/*-OFL.txt and in the packaged font assets.

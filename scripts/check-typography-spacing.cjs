@@ -61,7 +61,7 @@ async function run() {
         };
       })()`);
       console.log('GEOMETRY', JSON.stringify(geometry));
-      assert.ok(geometry.font.includes('Segoe UI'), 'Vietnamese font missing');
+      assert.ok(geometry.font.includes('Be Vietnam Pro'), 'Vietnamese font missing');
       assert.equal(geometry.baseFont, '14px');
       assert.ok(geometry.sidebar && geometry.sidebar.w >= 180, 'sidebar too narrow');
       assert.ok(geometry.menuItemHeight >= 40, 'menu item too cramped');

@@ -1,9 +1,8 @@
 /* Readable Windows typography and consistent rhythm for Vietnamese UI.
- * Uses Windows system fonts already available on the machine: no download needed.
  * Keep media canvases, video overlays and original Chinese layout untouched.
  */
 html:lang(vi) {
-  --vi-font: "Segoe UI", "Segoe UI Variable Text", Arial, "Noto Sans", sans-serif;
+  --vi-font: var(--font-ui);
   --vi-space-1: 6px;
   --vi-space-2: 10px;
   --vi-space-3: 16px;
