@@ -32,6 +32,7 @@
   }
 
   select:not([multiple], [size])::picker(select) {
+    font: inherit;
     max-inline-size: min(30rem, calc(100dvw - 24px));
     max-block-size: min(20rem, 60dvh);
     margin-block: 4px;

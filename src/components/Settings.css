@@ -10,7 +10,7 @@
 }
 
 .settings-header h2 {
-  font-size: 22px;
+  font-size: var(--text-size-heading);
   font-weight: 700;
 }
 
@@ -32,7 +32,7 @@
 }
 
 .settings-label {
-  font-size: 14px;
+  font-size: var(--text-size-base);
   font-weight: 600;
 }
 
@@ -60,7 +60,7 @@
 .appearance-zoom output { min-width: 6ch; text-align: center; font-variant-numeric: tabular-nums; }
 
 .settings-hint {
-  font-size: 12px;
+  font-size: var(--text-size-sm);
   color: var(--text-tertiary);
 }
 
@@ -94,7 +94,7 @@
 .proxy-status-text {
   flex: 1;
   min-width: 0;
-  font-size: 13px;
+  font-size: var(--text-size-base);
   color: var(--text-secondary);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -127,7 +127,7 @@
 
 .btn-sm {
   padding: 6px 11px;
-  font-size: 13px;
+  font-size: var(--text-size-base);
   flex-shrink: 0;
 }
 
@@ -178,7 +178,7 @@
   display: flex;
   align-items: center;
   gap: 9px;
-  font-size: 15px;
+  font-size: var(--text-size-base);
   font-weight: 600;
 }
 
@@ -209,7 +209,7 @@
 }
 
 .proxy-switch-text {
-  font-size: 14px;
+  font-size: var(--text-size-base);
   font-weight: 600;
   display: flex;
   flex-direction: column;
@@ -218,7 +218,7 @@
 
 .proxy-switch-text em {
   font-style: normal;
-  font-size: 12px;
+  font-size: var(--text-size-sm);
   font-weight: 400;
   color: var(--text-tertiary);
 }
@@ -269,13 +269,13 @@
 }
 
 .proxy-mode-body b {
-  font-size: 13px;
+  font-size: var(--text-size-base);
   font-weight: 600;
 }
 
 .proxy-mode-body em {
   font-style: normal;
-  font-size: 12px;
+  font-size: var(--text-size-sm);
   color: var(--text-tertiary);
 }
 
@@ -316,7 +316,7 @@
   gap: 8px;
   padding: 10px 13px;
   border-radius: var(--radius);
-  font-size: 13px;
+  font-size: var(--text-size-base);
   line-height: 1.5;
 }
 
@@ -353,8 +353,8 @@
 
 .settings-header > svg { display: none; }
 .settings-card > .settings-group { padding: 26px 0; border-bottom: 1px solid var(--border-muted); }
-.settings-label { font-size: 14px; margin-bottom: 4px; }
-.settings-hint { font-size: 12px; line-height: 1.7; }
+.settings-label { font-size: var(--text-size-base); margin-bottom: 4px; }
+.settings-hint { font-size: var(--text-size-sm); line-height: 1.7; }
 .settings-footer { padding: 20px 0; border-top: 0; }
 .proxy-status-row { background: var(--bg-canvas); }
 .proxy-dot-on, .proxy-dot-off { box-shadow: none; }
@@ -364,12 +364,12 @@
 .proxy-switch-row { padding-bottom: 18px; border-bottom: 1px solid var(--border); }
 .proxy-fields-disabled { opacity: .5; }
 
-.appearance-error { color: var(--danger); font-size: 12px; }
+.appearance-error { color: var(--danger); font-size: var(--text-size-sm); }
 
 .builtin-sources { margin: 22px 0; }
-.builtin-source-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--border-muted); font-size: 13px; }
+.builtin-source-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--border-muted); font-size: var(--text-size-base); }
 .builtin-source-row:last-of-type { border-bottom: 0; padding-bottom: 0; }
-.builtin-source-row em { display: block; margin-top: 4px; font-size: 12px; font-style: normal; color: var(--text-secondary); }
+.builtin-source-row em { display: block; margin-top: 4px; font-size: var(--text-size-sm); font-style: normal; color: var(--text-secondary); }
 .builtin-source-row input { appearance: none; flex: 0 0 36px; width: 36px; height: 22px; border: 1px solid var(--text-muted); border-radius: 11px; background: var(--bg-canvas); cursor: pointer; position: relative; }
 .builtin-source-row input::before { content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: var(--text-secondary); }
 .builtin-source-row input:checked { background: var(--primary); border-color: var(--primary); }
@@ -378,7 +378,7 @@
 .builtin-source-row input:disabled { cursor: default; }
 
 .shortcut-settings-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
-.shortcut-settings-heading h2 { font-size: 17px; letter-spacing: 0; }
+.shortcut-settings-heading h2 { font-size: var(--text-size-heading); letter-spacing: 0; }
 .shortcut-settings-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; margin: 12px 0; }
 .shortcut-settings-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--border-muted); }
 .shortcut-record { min-width: 76px; font-variant-numeric: tabular-nums; }

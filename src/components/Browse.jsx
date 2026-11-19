@@ -698,7 +698,7 @@ function Browse({ onNavigate, active = true }) {
         </div>
       )}
 
-      {!totalPages && (displayedPage > 1 || meta.hasMore) && <div className="browse-pager"><button className="pager-item" disabled={displayedPage <= 1 || loading || meta.cursorExpired} onClick={() => gotoPage(displayedPage - 1)}>上一页</button><span>第 {displayedPage} 页</span><button className="pager-item" disabled={!meta.hasMore || loading || meta.cursorExpired} onClick={() => gotoPage(displayedPage + 1)}>下一页</button></div>}
+      {!totalPages && (displayedPage > 1 || meta.hasMore) && <div className="browse-pager"><button className="pager-item" disabled={displayedPage <= 1 || loading || meta.cursorExpired} onClick={() => gotoPage(displayedPage - 1)}>上一页</button><span>{`第 ${displayedPage} 页`}</span><button className="pager-item" disabled={!meta.hasMore || loading || meta.cursorExpired} onClick={() => gotoPage(displayedPage + 1)}>下一页</button></div>}
 
       {/* ===== 剧集详情抽屉 ===== */}
       {(detail || detailLoading) && (

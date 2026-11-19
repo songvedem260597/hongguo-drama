@@ -7,6 +7,12 @@ const translated = Object.freeze({ ...viAuto, ...viOverrides });
 const HAN = /[\u3400-\u9fff]/;
 const HAN_RUN = /[\u3400-\u9fff]+/g;
 const UI_ATTRIBUTES = ['title', 'placeholder', 'aria-label', 'aria-description', 'alt', 'data-tooltip'];
+const UI_LABEL_SELECTOR = [
+  'button', 'label', 'option', 'summary', 'legend', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p',
+  '[role="tab"]', '[role="menuitem"]', '.browse-nav-label', '.stat', '.status-tag', '.alert',
+].join(',');
+const LOWERCASE_START = /^([\s"'“‘«(\[]*)(\p{Ll})/u;
+
 const SKIP_SELECTOR = [
   'script', 'style', 'textarea', 'pre', 'code', 'kbd', 'svg',
   '[contenteditable="true"]', '[data-i18n-skip]', '#menu-language',
@@ -33,6 +39,8 @@ let queued = false;
 
 export function translateUiString(value) {
   if (typeof value !== 'string' || !HAN.test(value)) return value;
+  const pageNumber = /^(\s*)第\s*(\d+)\s*页(\s*)$/.exec(value);
+  if (pageNumber) return pageNumber[1] + 'Trang ' + pageNumber[2] + pageNumber[3];
   // Hongguo catalog count units: 万 = 10,000; 亿 = 100,000,000.
   const countOnly = /^\d+(?:\.\d+)?(?:万|亿)$/.test(value.trim());
   const input = countOnly ? value.replace(/(\d+(?:\.\d+)?)(万|亿)/g, (_, digits, unit) => {
@@ -63,6 +71,20 @@ export function translateUiString(value) {
     .replace(/（/g, ' (').replace(/）/g, ')');
 }
 
+
+function capitalizeUiLabel(text) {
+  return text.replace(LOWERCASE_START, (_, prefix, letter) => prefix + letter.toLocaleUpperCase('vi'));
+}
+
+function beginsLabel(node) {
+  const label = node.parentElement.closest(UI_LABEL_SELECTOR);
+  if (!label) return false;
+  const preceding = node.ownerDocument.createRange();
+  preceding.setStart(label, 0);
+  preceding.setEndBefore(node);
+  return preceding.toString().trim() === '';
+}
+
 function excluded(node) {
   const element = node.nodeType === 1 ? node : node.parentElement;
   return !element || Boolean(element.closest(SKIP_SELECTOR));
@@ -80,7 +102,8 @@ function updateText(node) {
     if (!HAN.test(current)) return;
     record = { original: current, translated: null };
   }
-  const next = language === 'vi' ? translateUiString(record.original) : record.original;
+  let next = language === 'vi' ? translateUiString(record.original) : record.original;
+  if (next !== record.original && LOWERCASE_START.test(next) && beginsLabel(node)) next = capitalizeUiLabel(next);
   record.translated = next;
   textRecords.set(node, record);
   if (current !== next) node.nodeValue = next;
@@ -101,7 +124,8 @@ function updateAttributes(element) {
       if (!HAN.test(current)) continue;
       record = { original: current, translated: null };
     }
-    const next = language === 'vi' ? translateUiString(record.original) : record.original;
+    const localized = language === 'vi' ? translateUiString(record.original) : record.original;
+    const next = localized === record.original ? localized : capitalizeUiLabel(localized);
     record.translated = next;
     state.set(attr, record);
     if (current !== next) element.setAttribute(attr, next);

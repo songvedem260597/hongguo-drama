@@ -44,3 +44,13 @@ test('built-in sources show brand names in Vietnamese', () => {
 test('movie title not present in the known UI dictionary remains untouched', () => {
   assert.equal(translateUiString('这不是UI里的新电影名字'), '这不是UI里的新电影名字');
 });
+
+
+test('Discover category labels and page numbers use Vietnamese sentence case', () => {
+  assert.equal(translateUiString('真人剧'), 'Phim người đóng');
+  assert.equal(translateUiString('漫剧'), 'Phim hoạt hình');
+  assert.equal(translateUiString('AI剧'), 'Phim AI');
+  assert.equal(translateUiString('目录线路'), 'Nguồn danh mục');
+  assert.equal(translateUiString('热播榜'), 'Bảng xếp hạng');
+  assert.equal(translateUiString('第 12 页'), 'Trang 12');
+});

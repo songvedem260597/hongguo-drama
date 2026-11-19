@@ -45,18 +45,21 @@ const fs = require('node:fs');
 const path = require('node:path');
 const postcss = require('postcss');
 const sourceRoot = path.join(__dirname, '../src');
+const textScale = new Map();
+postcss.parse(fs.readFileSync(path.join(sourceRoot, 'index.css'), 'utf8')).walkDecls(/^--text-size-/, declaration => {
+  textScale.set(`var(${declaration.prop})`, declaration.value);
+});
+assert.equal(textScale.size, 5, 'the UI scale must define five size tokens');
+assert.equal(new Set(textScale.values()).size, 5, 'each token must have its own font size');
 for (const file of fs.readdirSync(sourceRoot, { recursive: true }).filter(file => file.endsWith('.css'))) {
   const css = postcss.parse(fs.readFileSync(path.join(sourceRoot, file), 'utf8'));
   const declarations = [];
   css.walkDecls(/^(font|font-size)$/, declaration => declarations.push(declaration));
   declarations.forEach(declaration => {
+    assert(declaration.value === 'inherit' || textScale.has(declaration.value), `${file}: font size must use the shared scale`);
     assert(!/\b[\d.]+(?:[sld]?v[whib]|[sld]?vmin|[sld]?vmax|cq[whib]|cqmin|cqmax)\b/.test(declaration.value), `${file}: font size must not follow viewport dimensions`);
     for (let parent = declaration.parent; parent; parent = parent.parent) {
-      const vietnameseCompactSize = file === 'typography-vi.css' && parent.params === '(max-width: 760px)'
-        && declaration.prop === 'font-size'
-        && ((declaration.parent.selector === 'html:lang(vi) .sidebar-item' && declaration.value === '13px')
-          || (declaration.parent.selector === 'html:lang(vi) .settings-header h2' && declaration.value === '23px'));
-      assert(vietnameseCompactSize || !(parent.type === 'atrule' && parent.name === 'media' && /(?:width|height|orientation)/.test(parent.params)), `${file}: responsive layout must preserve font size`);
+      assert(!(parent.type === 'atrule' && parent.name === 'media' && /(?:width|height|orientation)/.test(parent.params)), `${file}: responsive layout must preserve font size`);
     }
   });
 }

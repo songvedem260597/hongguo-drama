@@ -5,6 +5,6 @@
 .player-controls-menu .video-enhancement-settings select { width: 108px; }
 .player-controls-menu .video-enhancement-strength { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
 .video-enhancement-strength input { flex: 1; min-width: 65px; width: 70px; }
-.video-enhancement-strength output { min-width: 32px; font-size: 11px; font-variant-numeric: tabular-nums; }
-.video-enhancement-note { margin: 9px 0 0; font-size: 11px; line-height: 1.5; color: var(--text-secondary); }
+.video-enhancement-strength output { min-width: 32px; font-size: var(--text-size-xs); font-variant-numeric: tabular-nums; }
+.video-enhancement-note { margin: 9px 0 0; font-size: var(--text-size-xs); line-height: 1.5; color: var(--text-secondary); }
 .video-enhancement-note.enhancement-error { color: var(--text-primary); }
