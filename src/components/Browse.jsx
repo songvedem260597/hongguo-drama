@@ -10,7 +10,7 @@ import { rememberCatalogTitles } from '../searchHistory';
 
 const PAGE_CACHE_TTL_MS = 60_000;
 const LIST_TIMEOUT_MS = 25_000;
-const PAGE_CACHE_KEY = 'hongguo.catalog.page.v1';
+const PAGE_CACHE_KEY = 'hongguo.catalog.page.v2';
 const CATALOG_CHANNEL_KEY = 'hongguo.catalog.channel.v1';
 const PAGE_CACHE_MAX = 8;
 const PAGE_CACHE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
@@ -163,13 +163,10 @@ function Browse({ onNavigate, active = true }) {
       const persistedKey = JSON.stringify([source, channel, cat, gen, pg]);
       const queryKey = JSON.stringify([source, channel, cat, gen]);
       const previousBatch = discoveryPages.get(queryKey);
-      // First-page App cards are safe to show as a stale preview; page 2+ depends on a live cursor.
-      const canPersist = !source.startsWith('custom:') && (!appCatalog || pg === 1);
-      let cached = pageCache.get(key);
-      if (!cached && canPersist) {
-        cached = readPersistedPage(persistedKey);
-        if (cached) pageCache.set(key, cached);
-      }
+      // Later pages depend on the current source pagination session.
+      const canPersist = pg === 1 && !source.startsWith('custom:');
+      const memoryCached = pageCache.get(key);
+      const cached = memoryCached || (canPersist ? readPersistedPage(persistedKey) : null);
       const sameView = viewRef.current.source === source && viewRef.current.category === cat && viewRef.current.channel === channel;
       const sameQuery = sameView && viewRef.current.genre === gen;
       const samePage = viewRef.current.page === pg;
@@ -195,7 +192,7 @@ function Browse({ onNavigate, active = true }) {
         setMeta(prev => previousBatch?.meta || (sameView ? prev : { total: 0, totalPages: 0, genres: [] }));
         setSourceUrl(prev => sameView ? prev : fallbackUrl);
       }
-      if (!forceRefresh && cached && !appCatalog && Date.now() - cached.savedAt < PAGE_CACHE_TTL_MS) {
+      if (!forceRefresh && memoryCached && !appCatalog && Date.now() - memoryCached.savedAt < PAGE_CACHE_TTL_MS) {
         setLoading(false);
         return;
       }
@@ -214,10 +211,10 @@ function Browse({ onNavigate, active = true }) {
       }, LIST_TIMEOUT_MS);
       try {
         const res = await window.electronAPI.browseList({ source, category: cat, genre: gen, page: pg, forceRefresh,
-          ...(source === 'hongguo' ? { catalogChannel } : {}), ...(appCatalog ? { catalogScope: 'browse' } : {}) });
+          catalogScope: 'browse', sourceRevision, ...(source === 'hongguo' ? { catalogChannel } : {}) });
         if (request !== listRequest.current) return;
         setSourceUrl(res?.sourceUrl || fallbackUrl);
-        if (appCatalog && res?.code === 'APP_CURSOR') {
+        if (res?.code === 'APP_CURSOR' || res?.code === 'BROWSE_CURSOR') {
           setMeta(prev => ({ ...prev, cursorExpired: true }));
           throw new Error('分页记录已失效，请点击“刷新片单”返回第一页。');
         }
@@ -253,7 +250,7 @@ function Browse({ onNavigate, active = true }) {
                 : `刷新完成：来源返回的短剧及顺序未变化（${next.results.length} 部）。`
               : `刷新完成：片单已更新（${next.results.length} 部）。`);
           }
-          if (!appCatalog || pg === 1) {
+          if (pg === 1) {
             pageCache.delete(key);
             pageCache.set(key, next);
             if (canPersist) writePersistedPage(persistedKey, next);
@@ -303,7 +300,7 @@ function Browse({ onNavigate, active = true }) {
   }, [active, category, genre, page, loadList, sourcesLoading, mediaSources, invalidateList]);
 
   const refreshList = () => {
-    if (appCatalog && page > 1) {
+    if (page > 1) {
       invalidateList();
       refreshFirstPage.current = true;
       refreshToFirstPage.current = true;
@@ -630,7 +627,7 @@ function Browse({ onNavigate, active = true }) {
       {loading && results.length > 0 && <div className="browse-loading" role="status"><RefreshCw size={18} className="spin" /><span>正在更新片单，仍可浏览上次结果…</span><button className="btn btn-outline btn-sm" onClick={cancelList}>取消加载</button></div>}
 
       {loading && results.length === 0 ? (
-        <div className="browse-loading-state" role="status"><div className="browse-loading"><RefreshCw size={18} className="spin" /><span>正在加载{categories.find((item) => item.slug === category)?.label || '短剧'}…</span><button className="btn btn-outline btn-sm" onClick={cancelList}>取消加载</button></div><div className="poster-skeletons" aria-hidden="true">{Array.from({ length: 5 }, (_, i) => <div className="poster-skeleton" key={i}><div /><span /><span /></div>)}</div></div>
+        <div className="browse-loading-state" role="status"><div className="browse-loading"><RefreshCw size={18} className="spin" /><span>正在加载{categories.find((item) => item.slug === category)?.label || '短剧'}…</span><button className="btn btn-outline btn-sm" onClick={cancelList}>取消加载</button></div><div className="poster-skeletons" aria-hidden="true">{Array.from({ length: 16 }, (_, i) => <div className="poster-skeleton" key={i}><div /><span /><span /></div>)}</div></div>
       ) : (
         <div className="browse-grid">
           {visibleResults.map((item) => {

@@ -857,7 +857,7 @@ async function mount(file, api, props = {}, storage = null) {
     assert.equal(ui.find(n => n.props['aria-label'] === '红果目录线路').props.value, 'app');
     assert.equal(ui.nodes().filter(n => n.props.className?.startsWith('browse-cat ') && n.children[0]?.startsWith?.('hot-')).length, 4);
     assert.ok(!ui.text().includes('共 800 部'));
-    const persisted = JSON.parse(ui.localStorage.getItem('hongguo.catalog.page.v1') || '[]');
+    const persisted = JSON.parse(ui.localStorage.getItem('hongguo.catalog.page.v2') || '[]');
     assert.ok(persisted.some(entry => entry.key.includes('"app"') && entry.key.includes('real-drama')), 'App first page may be persisted as a stale preview');
     assert.ok(!persisted.some(entry => entry.key.includes('"app"') && entry.key.includes(',2]')), 'App page 2 must not be persisted');
     ui.button('都市').props.onClick(); await ui.flush();
@@ -1164,7 +1164,7 @@ async function mount(file, api, props = {}, storage = null) {
   });
   await test('browse custom sources ignore persisted pages and refresh after configuration changes', async () => {
     const custom = 'custom:550e8400-e29b-41d4-a716-446655440000';
-    const key = 'hongguo.catalog.page.v1';
+    const key = 'hongguo.catalog.page.v2';
     const legacy = JSON.stringify([{ key: JSON.stringify([custom, 'real-drama', '', 1]), results: [{ series_id: custom + ':1', series_title: '旧站片单' }], meta: { total: 1, totalPages: 1, genres: [] }, savedAt: Date.now() }]);
     const storage = { value: legacy, getItem(k) { return k === key ? this.value : null; }, setItem(k, value) { if (k === key) this.value = value; } };
     let calls = 0;

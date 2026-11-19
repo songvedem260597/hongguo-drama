@@ -1566,6 +1566,7 @@ ipcMain.handle('test-custom-source', async (_event,draft) => {
 });
 
 
+const browseDisplayPage = require('./src/native/catalog-pagination').createCatalogPager();
 ipcMain.handle('browse-list', async (_event, options) => {
   if ((['xifan', 'hema'].includes(options?.source) && getCurrentSettings().builtin_sources?.[options.source] === false)
     || (['reelshort', 'dramabox'].includes(options?.source) && getCurrentSettings().builtin_sources?.[options.source] !== true)) return { success: false, results: [], error: '此来源已关闭，可在设置中重新开启' };
@@ -1579,10 +1580,11 @@ ipcMain.handle('browse-list', async (_event, options) => {
       : options?.catalogChannel === 'web' ? './src/native/catalog' : './src/native/hongguo-app-catalog';
   const catalogOptions = moduleName === './src/native/catalog'
     ? { ...options, allowTrustedDns: resolveProxyConfig(getCurrentSettings()).mode === 'direct' } : options;
-  return require(moduleName).browseList(catalogOptions, (authInfo, callback) => {
+  const fetchPage = request => require(moduleName).browseList(request, (authInfo, callback) => {
     if (matchesProxyAuth(authInfo)) callback(activeProxyAuth.username, activeProxyAuth.password);
     else callback();
   });
+  return options?.catalogScope === 'browse' ? browseDisplayPage(catalogOptions, fetchPage) : fetchPage(catalogOptions);
 });
 
 const normalizeSearchTitle = value => String(value || '').normalize('NFKC').toLowerCase().replace(/[\s\p{P}\p{S}]+/gu, '');
