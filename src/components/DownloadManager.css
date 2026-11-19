@@ -1,6 +1,4 @@
 .dm-container {
-  max-width: 1000px;
-  margin: 0 auto;
   color: var(--text-primary);
 }
 
@@ -121,16 +119,22 @@
 /* ===== 合并 ===== */
 .merge-inline {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  min-width: 0;
+  max-width: 100%;
   gap: 8px;
 }
 
-.merge-select {
-  max-width: 180px;
-  padding: 7px 10px;
-  font-size: 13px;
-  cursor: pointer;
+.input-field.merge-select {
+  flex: 0 1 auto;
+  width: clamp(11rem, 18vw, 21rem);
+  max-width: 100%;
+  align-items: center;
 }
+
+.merge-select > button { flex: 1; min-width: 0; }
+.merge-select selectedcontent { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 .merge-list {
   display: flex;
@@ -448,7 +452,6 @@
 .dm-more-menu .btn { justify-content: flex-start; border: 0; }
 .dm-more-menu .btn:disabled { display: flex; }
 .merge-inline { margin-left: auto; }
-.merge-select { height: 35px; max-width: 160px; }
 .dm-queue-bar, .dm-hint { margin: 16px 0; }
 .dm-list { gap: 0; }
 .dm-task { border: 0; border-bottom: 1px solid var(--border); border-radius: 0; padding: 16px 4px; background: transparent; }

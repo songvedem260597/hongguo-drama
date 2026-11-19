@@ -563,6 +563,7 @@ function DownloadManager({ onNavigate, active = true }) {
               onChange={(e) => setMergeSeriesId(e.target.value)}
               title="选择要合并的短剧"
             >
+              <button type="button"><selectedcontent data-i18n-skip /></button>
               {seriesList.map((s) => (
                 <FilmText as="option" key={s.series_id} value={String(s.series_id)} text={s.series_title} />
               ))}

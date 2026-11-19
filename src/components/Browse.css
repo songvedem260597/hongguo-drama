@@ -67,8 +67,6 @@
 .browse-foot-right { display: flex; gap: 8px; }
 @media (max-width: 960px) { .browse-header { align-items: flex-start; } .browse-grid, .poster-skeletons { gap: 24px 16px; } }
 
-.browse-container .source-control { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; white-space: nowrap; }
-.browse-container .source-control select { width: auto; min-width: 112px; }
 
 .browse-source-note { margin: 0 0 18px; color: var(--text-secondary); font-size: 12px; }
 

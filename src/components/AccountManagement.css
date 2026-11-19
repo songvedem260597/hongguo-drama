@@ -1,4 +1,3 @@
-.account-page { max-width: 840px; margin: 0 auto; }
 .account-page-header { display: flex; align-items: center; gap: 10px; margin-bottom: 30px; }
 .account-page-header h2 { margin: 0 0 6px; font-size: 22px; }
 .account-page-header p { margin: 0; color: var(--text-secondary); }

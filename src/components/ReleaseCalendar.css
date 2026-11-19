@@ -1,4 +1,4 @@
-.release-calendar { width: 100%; max-width: 1020px; margin: 0 auto; color: var(--text-primary); }
+.release-calendar { color: var(--text-primary); }
 .release-coverage { color: var(--text-secondary); font-size: 12px; line-height: 1.8; margin-top: 16px; font-variant-numeric: tabular-nums; }
 .release-toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin: 24px 0; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
 .release-filter { display: flex; gap: 6px; }

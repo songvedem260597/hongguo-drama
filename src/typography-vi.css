@@ -119,7 +119,6 @@ html:lang(vi) .episode-num { font-size: 13px; }
 /* More coherent Settings alignment and spacing for Vietnamese sentences. */
 html:lang(vi) .settings-header { gap: 13px; margin-bottom: 24px; align-items: flex-start; }
 html:lang(vi) .settings-header h2 { font-size: 25px; }
-html:lang(vi) .settings-container { max-width: 900px; }
 html:lang(vi) .settings-card { padding-inline: 24px; }
 html:lang(vi) .settings-card > .settings-group { padding: 20px 0; }
 html:lang(vi) .settings-group { gap: 10px; min-width: 0; }
