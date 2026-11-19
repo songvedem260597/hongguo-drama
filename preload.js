@@ -3,7 +3,7 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  translateFilmText: text => ipcRenderer.invoke('translate-film-text', text),
+  translateFilmText: (text, priority) => ipcRenderer.invoke('translate-film-text', text, priority),
   getPublicDetails: (seriesId, vid) => ipcRenderer.invoke('get-public-details', seriesId, vid),
   getEpisodeComments: options => ipcRenderer.invoke('get-episode-comments', options),
   getEpisodeDanmaku: options => ipcRenderer.invoke('get-episode-danmaku', options),

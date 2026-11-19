@@ -41,6 +41,12 @@ export function translateUiString(value) {
   if (typeof value !== 'string' || !HAN.test(value)) return value;
   const pageNumber = /^(\s*)第\s*(\d+)\s*页(\s*)$/.exec(value);
   if (pageNumber) return pageNumber[1] + 'Trang ' + pageNumber[2] + pageNumber[3];
+  const listPosition = /^(榜单|本次片单|片单)第\s*(\d+)\s*(?:名|部)$/.exec(value);
+  if (listPosition) return (listPosition[1] === '榜单' ? 'Hạng ' : 'Phim số ') + listPosition[2];
+  const filmCounter = /^第\s*(\d+)\s*\/\s*(\d+)\s*部$/.exec(value);
+  if (filmCounter) return 'Phim ' + filmCounter[1] + ' / ' + filmCounter[2];
+  const listCount = /^(\s*·\s*)本次\s*(\d+)\s*部$/.exec(value);
+  if (listCount) return listCount[1] + listCount[2] + ' phim';
   // Hongguo catalog count units: 万 = 10,000; 亿 = 100,000,000.
   const countOnly = /^\d+(?:\.\d+)?(?:万|亿)$/.test(value.trim());
   const input = countOnly ? value.replace(/(\d+(?:\.\d+)?)(万|亿)/g, (_, digits, unit) => {

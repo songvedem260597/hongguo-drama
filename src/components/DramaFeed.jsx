@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import FilmText from '../i18n/FilmText';
+import FilmText, { FilmTags } from '../i18n/FilmText';
 import { Film, Play, RefreshCw } from './icons';
 import RandomDrama, { DramaPoster } from './RandomDrama';
 import useMediaSources from './useMediaSources';
@@ -187,6 +187,7 @@ function DramaFeed({ active = true, onNavigate }) {
 
   const introduction = selected?.intro || selected?.series_intro || selected?.description;
   const upcoming = items.slice(index + 1, index + 5);
+  const tags = [selected?.episode_count > 0 && `${selected.episode_count} 集`, ...(selected?.tags || [])].filter(Boolean);
   return <section className="drama-feed" aria-label="热播推荐">
     <header className="drama-feed-header">
       <div><h2>热播推荐</h2><p className="page-description">从热播榜和来源片单，遇见下一部故事。</p></div>
@@ -231,9 +232,9 @@ function DramaFeed({ active = true, onNavigate }) {
           <DramaPoster item={selected} />
           <div className="drama-feed-copy">
             <p className="drama-feed-rank">{ranking && selected.rank > 0 ? `榜单第 ${selected.rank} 名` : `本次片单第 ${index + 1} 部`}{ranking && selected.heat ? ` · ${selected.heat}` : ''}</p>
-            <FilmText as="h3" text={selected.series_title} />
-            <p className="drama-feed-tags">{[selected.episode_count > 0 && `${selected.episode_count} 集`, ...(selected.tags || [])].filter(Boolean).join(' · ') || `来自${sourceLabel}片单`}</p>
-            {typeof introduction === 'string' && introduction.trim() && <FilmText as="p" className="drama-feed-intro" text={introduction} />}
+            <FilmText as="h3" text={selected.series_title} pendingText="Đang dịch tên phim…" />
+            {tags.length > 0 && <p className="drama-feed-tags"><FilmTags tags={tags} /></p>}
+            {typeof introduction === 'string' && introduction.trim() && <FilmText as="p" className="drama-feed-intro" text={introduction} pendingText="Đang dịch mô tả…" />}
             <p className="drama-feed-play-note">在「我的剧库」选集、播放，接着上次继续看。</p>
             <div className="drama-feed-actions"><button className="btn btn-primary" disabled={resolving} onClick={startItem}><Play size={16} />{resolving ? '正在打开剧库…' : '在剧库播放'}</button>
               {resolving && <button className="btn btn-outline" onClick={() => { playController.current?.abort(); setResolving(false); setPlayError('已取消加载，可重试本剧。'); }}>取消加载</button>}</div>
@@ -241,7 +242,7 @@ function DramaFeed({ active = true, onNavigate }) {
           </div>
         </div>
         <div className="drama-feed-navigation">
-          <span aria-live="polite">第 <strong>{index + 1}</strong> / {items.length} 部</span>
+          <span aria-live="polite">{`第 ${index + 1} / ${items.length} 部`}</span>
           <div className="drama-feed-actions" role="group" aria-label="切换推荐短剧">
             <button className="btn btn-outline" disabled={index === 0 || resolving} onClick={() => selectItem(index - 1)}>上一部</button>
             <button className="btn btn-outline" disabled={index === items.length - 1 || resolving} onClick={() => selectItem(index + 1)}>下一部</button>
@@ -249,10 +250,10 @@ function DramaFeed({ active = true, onNavigate }) {
         </div>
         {upcoming.length > 0 ? <div className="drama-feed-upcoming"><h4>接下来看看</h4><div className="drama-feed-upcoming-list">
           {upcoming.map((item, offset) => <button key={item.series_id} className="drama-feed-next" disabled={resolving} onClick={() => selectItem(index + offset + 1)}>
-            <DramaPoster item={item} /><span><FilmText as="strong" lazy text={item.series_title} /><small>{ranking && item.rank > 0 ? `榜单第 ${item.rank} 名` : `片单第 ${index + offset + 2} 部`}</small></span>
+            <DramaPoster item={item} /><span><FilmText as="strong" text={item.series_title} pendingText="Đang dịch tên phim…" /><small>{ranking && item.rank > 0 ? `榜单第 ${item.rank} 名` : `片单第 ${index + offset + 2} 部`}</small></span>
           </button>)}
         </div></div> : <p className="drama-feed-hint">已到本次片单末尾，换个来源，或摇一摇发现新故事。</p>}
-        <p className="drama-feed-source">{ranking ? `榜单来自${catalogChannel === 'app' ? '红果 App 目录' : '红果官网公开页面'}，不是账号个性化推荐。` : `片单来自${sourceLabel}当前目录，不代表热播排名；播放以来源实际可用分集为准。`}</p>
+        <p className="drama-feed-source">{ranking ? `榜单来自${catalogChannel === 'app' ? '红果 App 目录' : '红果官网公开页面'}，不是账号个性化推荐。` : '按来源目录顺序展示，分集以实际可播内容为准。'}</p>
       </>}
     </>}
   </section>;

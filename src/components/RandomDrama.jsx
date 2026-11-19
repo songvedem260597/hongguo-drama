@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import FilmText from '../i18n/FilmText';
+import FilmText, { FilmTags } from '../i18n/FilmText';
 import { Film, Play, RefreshCw } from './icons';
 import useMediaSources from './useMediaSources';
 import { mediaSourceLabel } from './mediaSourcesModel.mjs';
@@ -10,7 +10,7 @@ export function DramaPoster({ item, className = '' }) {
   const [failed, setFailed] = useState(false);
   useEffect(() => setFailed(false), [item?.cover]);
   return <div className={`drama-poster ${className}`}>
-    {item?.cover && !failed ? <img key={`${item.series_id}:${item.cover}`} src={item.cover} alt={`${item.series_title}海报`} onError={() => setFailed(true)} />
+    {item?.cover && !failed ? <img key={`${item.series_id}:${item.cover}`} src={item.cover} alt="" onError={() => setFailed(true)} />
       : <div className="drama-poster-fallback"><Film size={36} /><span>暂无海报</span></div>}
   </div>;
 }
@@ -116,9 +116,9 @@ export default function RandomDrama({ active, refreshKey = 0, onNavigate }) {
       {selected && <div className="random-drama-result" aria-live="polite">
         <DramaPoster item={selected} />
         <div className="random-drama-result-copy"><p className="drama-source-label">{sourceLabel(selected.source)} · 随机抽取</p>
-          <FilmText as="h3" text={selected.series_title} />
+          <FilmText as="h3" text={selected.series_title} pendingText="Đang dịch tên phim…" />
           {selected.episode_count > 0 && <p>共 {selected.episode_count} 集</p>}
-          {selected.tags?.length > 0 && <p className="random-drama-tags">{selected.tags.join(' · ')}</p>}
+          {selected.tags?.length > 0 && <p className="random-drama-tags"><FilmTags tags={selected.tags} /></p>}
           <div className="random-drama-actions">
             <button className="btn btn-primary" disabled={resolving || shaking} onClick={play}><Play size={16} />{resolving ? '正在打开…' : '在剧库播放'}</button>
             <button className="btn btn-outline" disabled={resolving || shaking} onClick={draw}><RefreshCw size={15} />再抽一次</button>

@@ -1,28 +1,34 @@
 import React, { useEffect, useRef, useState, useSyncExternalStore } from 'react';
-import { getDocumentLanguage, subscribeDocumentLanguage } from './domLocale.mjs';
+import { getDocumentLanguage, subscribeDocumentLanguage, translateUiString } from './domLocale.mjs';
 
-export function useFilmTranslation(text, enabled = true) {
+const HAN = /\p{Script=Han}/u;
+
+export function useFilmTranslation(text, enabled = true, { priority = true, pendingText } = {}) {
   const language = useSyncExternalStore(subscribeDocumentLanguage, getDocumentLanguage);
-  const [translation, setTranslation] = useState(null);
+  const [result, setResult] = useState(null);
+  const request = window.electronAPI?.translateFilmText;
+  const shouldTranslate = enabled && language === 'vi' && typeof text === 'string' && /\p{L}/u.test(text) && request;
 
   useEffect(() => {
-    const request = window.electronAPI?.translateFilmText;
-    if (!enabled || language !== 'vi' || typeof text !== 'string' || !/\p{L}/u.test(text) || !request) return undefined;
+    if (!shouldTranslate) return undefined;
 
     let current = true;
-    Promise.resolve().then(() => request(text)).then(value => {
-      if (current && typeof value === 'string' && value) setTranslation({ text, value });
-    }).catch(() => {});
+    const finish = value => {
+      if (current) setResult({ text, value: typeof value === 'string' && value ? value : null });
+    };
+    Promise.resolve().then(() => request(text, priority)).then(finish, () => finish(null));
     return () => { current = false; };
-  }, [text, enabled, language]);
+  }, [text, priority, request, shouldTranslate]);
 
-  return language === 'vi' && translation?.text === text ? translation.value : text;
+  if (language !== 'vi') return text;
+  if (result && result.text === text) return result.value || text;
+  return shouldTranslate && pendingText !== undefined && HAN.test(text) ? pendingText : text;
 }
 
-export default function FilmText({ as: Tag = 'span', text, lazy = false, ...props }) {
+export default function FilmText({ as: Tag = 'span', text, lazy = false, pendingText, ...props }) {
   const element = useRef(null);
   const [visible, setVisible] = useState(false);
-  const displayText = useFilmTranslation(text, !lazy || visible);
+  const displayText = useFilmTranslation(text, !lazy || visible, { priority: !lazy, pendingText });
 
   useEffect(() => {
     const node = element.current;
@@ -42,4 +48,15 @@ export default function FilmText({ as: Tag = 'span', text, lazy = false, ...prop
   }, [lazy, visible, Tag]);
 
   return <Tag {...props} ref={element} data-i18n-skip>{displayText}</Tag>;
+}
+
+export function FilmTags({ tags }) {
+  const language = useSyncExternalStore(subscribeDocumentLanguage, getDocumentLanguage);
+  return [...new Set(tags)].map((tag, index) => {
+    const localized = language === 'vi' ? translateUiString(tag) : tag;
+    return <React.Fragment key={tag}>
+      {index > 0 && ' · '}
+      {language === 'vi' && HAN.test(localized) ? <FilmText text={tag} pendingText="…" /> : <span data-i18n-skip>{localized}</span>}
+    </React.Fragment>;
+  });
 }

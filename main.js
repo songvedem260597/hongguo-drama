@@ -8,7 +8,7 @@
  *   4. 下载管理：进度推送、暂停/取消、重试、删除、打开所在文件夹
  *   5. 设置：下载目录、命名规则、并发数（JSON 文件持久化）
  */
-const { app, BrowserWindow, BaseWindow, View, WebContentsView, globalShortcut, ipcMain: rawIpcMain, dialog, shell, session, protocol, Menu, Notification, screen, safeStorage } = require('electron');
+const { app, BrowserWindow, BaseWindow, View, WebContentsView, globalShortcut, net, ipcMain: rawIpcMain, dialog, shell, session, protocol, Menu, Notification, screen, safeStorage } = require('electron');
 const path = require('path');
 const IS_PREVIEW = require('./package.json').name === 'hongguo-experience-preview';
 if (IS_PREVIEW) {
@@ -5227,8 +5227,11 @@ ipcMain.handle('open-app-update', async event => {
 });
 
 // ===== 应用信息 =====
-const translateFilmText = require('./src/native/film-translation').createFilmTranslator();
-ipcMain.handle('translate-film-text', (_event, text) => translateFilmText(text));
+const translateFilmText = require('./src/native/film-translation').createFilmTranslator({
+  request: (url, options) => net.fetch(url, options),
+  cachePath: path.join(app.getPath('userData'), 'film-translations-vi.json'),
+});
+ipcMain.handle('translate-film-text', (_event, text, priority) => translateFilmText(text, priority === true));
 
 ipcMain.handle('get-public-details', async (event, seriesId, vid) => {
   if (!mainWindow || event.sender !== mainWindow.webContents || event.senderFrame !== mainWindow.webContents.mainFrame) return { success: false, error: 'Window unavailable' };
