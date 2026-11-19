@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import FilmText from '../i18n/FilmText';
 
 export default function SequelFinder({ seriesId, active = true, timeoutMs = 25000 }) {
   const [open, setOpen] = useState(false);
@@ -105,7 +106,7 @@ export default function SequelFinder({ seriesId, active = true, timeoutMs = 2500
       {!loading && !results.length && <p role="status">{error || partial ? '查询未完成，暂时无法判断是否有下一季。' : '暂未找到下一季，可稍后再查。'}</p>}
       {!!results.length && <ul className="sequel-finder-list">{results.map(sequel => <li key={sequel.series_id}>
         <button type="button" className="btn btn-outline btn-sm" onClick={() => play(sequel)} disabled={!!opening}
-          aria-label={`播放可能的续作《${sequel.series_title}》`}>{sequel.series_title}{opening === sequel.series_id ? ' · 打开中…' : ''}</button>
+          aria-label={`播放可能的续作《${sequel.series_title}》`}><FilmText text={sequel.series_title} />{opening === sequel.series_id ? ' · 打开中…' : ''}</button>
       </li>)}</ul>}
     </div>}
   </section>;

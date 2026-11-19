@@ -5225,6 +5225,9 @@ ipcMain.handle('open-app-update', async event => {
 });
 
 // ===== 应用信息 =====
+const translateFilmText = require('./src/native/film-translation').createFilmTranslator();
+ipcMain.handle('translate-film-text', (_event, text) => translateFilmText(text));
+
 ipcMain.handle('get-public-details', async (event, seriesId, vid) => {
   if (!mainWindow || event.sender !== mainWindow.webContents || event.senderFrame !== mainWindow.webContents.mainFrame) return { success: false, error: 'Window unavailable' };
   return fetchPublicDetails(seriesId, vid);

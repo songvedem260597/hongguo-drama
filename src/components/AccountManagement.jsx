@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import FilmText from '../i18n/FilmText';
 import { Play, RefreshCw, User } from './icons';
 import './AccountManagement.css';
 
@@ -190,7 +191,7 @@ export default function AccountManagement({ active = true }) {
                 <Play size={18} />
               </span>
               <span className="account-history-copy">
-                <strong>{row.series_title}</strong>
+                <FilmText as="strong" lazy text={row.series_title} />
                 <small>看到第 {row.vid_index || '?'} 集{row.total ? ` / 共 ${row.total} 集` : ''} · {Math.floor(row.currentTime || 0)}:{String(Math.floor((row.currentTime || 0) % 60)).padStart(2, '0')}</small>
                 <small>{row.updatedAt ? new Date(row.updatedAt).toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '时间未知'}</small>
               </span>

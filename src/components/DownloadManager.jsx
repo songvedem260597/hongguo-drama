@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import FilmText from '../i18n/FilmText';
 import useDialogKeyboard from './useDialogKeyboard';
 import './DownloadManager.css';
 import { Download, Trash2, RefreshCw, X, Film, Square, Folder, Zap, CheckSquare, Play, Pause, Layers } from './icons';
@@ -563,9 +564,7 @@ function DownloadManager({ onNavigate, active = true }) {
               title="选择要合并的短剧"
             >
               {seriesList.map((s) => (
-                <option key={s.series_id} value={String(s.series_id)}>
-                  {s.series_title}
-                </option>
+                <FilmText as="option" key={s.series_id} value={String(s.series_id)} text={s.series_title} />
               ))}
             </select>
             <button className="btn btn-outline" onClick={openMergeDialog} disabled={merging} title="把该剧已下载的分集合并成单个 mp4">
@@ -592,7 +591,7 @@ function DownloadManager({ onNavigate, active = true }) {
               <Layers size={16} />
               <div className="merge-body">
                 <div className="merge-title">
-                  合并《{m.seriesTitle}》· {m.done || 0}/{m.total} 集
+                  合并《<FilmText lazy text={m.seriesTitle} />》· {m.done || 0}/{m.total} 集
                 </div>
                 <div className="merge-sub">
                   {m.status === 'running' && <>{m.stageText || '正在合并'}{m.method && m.method !== m.stageText ? ` · ${m.method}` : ''}</>}
@@ -720,7 +719,9 @@ function DownloadManager({ onNavigate, active = true }) {
                   )}
                 </div>
                 <div className="dm-task-body">
-                  <div className="dm-task-title">{task.title || task.filename}</div>
+                  <div className="dm-task-title">{task.hongguoInfo && task.title
+                    ? <FilmText lazy text={task.title} />
+                    : task.title || task.filename}</div>
                   <div className="dm-task-meta">
                     <span className={`status-tag status-${waitingRetry ? 'pending' : task.status}`}>{waitingRetry ? '等待重试' : STATUS_TEXT[task.status] || task.status}</span>
                     {waitingRetry && <span className="dm-size">自动重试 {task.sourceRetries}/3 · {new Date(task.retryAt).toLocaleTimeString('zh-CN', { hour12: false })} 后排队</span>}

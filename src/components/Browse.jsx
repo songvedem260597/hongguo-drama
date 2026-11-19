@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import FilmText from '../i18n/FilmText';
 import useDialogKeyboard from './useDialogKeyboard';
 import './Browse.css';
 import useMediaSources from './useMediaSources';
@@ -433,9 +434,19 @@ function Browse({ onNavigate, active = true }) {
         progress: statusMap[ep.vid_index] ? statusMap[ep.vid_index].progress : 0,
         fileUrl: statusMap[ep.vid_index] ? statusMap[ep.vid_index].fileUrl : null,
       }));
-      setDetail({ ...data, episodes, completedCount: episodes.filter((e) => e.status === 'completed').length });
+      const description = [data.description, data.intro, data.series_intro, item.description, item.intro, item.series_intro]
+        .find(value => typeof value === 'string' && value.trim());
+      setDetail({ ...data, description, episodes, completedCount: episodes.filter((e) => e.status === 'completed').length });
       // 默认全选未下载的
       setSelectedIdx(new Set(episodes.filter((e) => !e.locked && e.status !== 'completed').map((e) => e.vid_index)));
+
+      if (!description && /^\d{6,30}$/.test(String(item.series_id))) {
+        window.electronAPI.getPublicDetails?.(item.series_id).then(result => {
+          if (request !== detailRequest.current || !result?.success || String(result.series_id) !== String(item.series_id)) return;
+          const intro = typeof result.description === 'string' && result.description.trim();
+          if (intro) setDetail(current => current && { ...current, description: intro });
+        }).catch(() => {});
+      }
     } catch (e) {
       if (request === detailRequest.current) showToast('打开失败: ' + e.message, 'error');
     } finally {
@@ -653,7 +664,7 @@ function Browse({ onNavigate, active = true }) {
                     </span>
                   </div>
                 </div>
-                <div className="browse-card-title">{item.series_title}</div>
+                <FilmText as="div" className="browse-card-title" lazy text={item.series_title} />
                 {item.completion_status === 'completed' && <div className="browse-completion-label">已完结</div>}
                 {item.completion_status === 'ongoing' && <div className="browse-completion-label">更新中</div>}
                 {item.heat && <div className="browse-card-heat">{item.heat}</div>}
@@ -699,7 +710,7 @@ function Browse({ onNavigate, active = true }) {
             <div className="browse-drawer-head">
               <div className="browse-drawer-title">
                 <Film size={18} />
-                <span>{detail ? `《${detail.series_title}》` : '加载中…'}</span>
+                {detail ? <FilmText text={detail.series_title} /> : <span>加载中…</span>}
               </div>
               <button className="icon-btn" onClick={closeDetail} title="关闭">
                 <X size={16} />
@@ -750,6 +761,7 @@ function Browse({ onNavigate, active = true }) {
                     </div>
                   </div>
 
+                  {detail.description && <FilmText as="p" className="browse-drawer-sub" text={detail.description} />}
                   <div className="browse-eps">
                     {detail.episodes.map((ep) => (
                       <button

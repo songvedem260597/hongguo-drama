@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import FilmText from '../i18n/FilmText';
 import { Play, Pause, Settings as SettingsIcon, PictureInPicture, MessageSquare } from './icons';
 import './PlayerControls.css';
 import { DEFAULT_SHORTCUTS, SHORTCUT_ACTIONS, formatShortcut, ignoresPlaybackShortcut, shortcutKey } from '../shortcuts';
@@ -288,7 +289,7 @@ export default function PlayerControls({ danmaku, enhancement, shortcuts = DEFAU
   return (
     <div className={`player-controls ${controlsHidden ? 'controls-hidden' : ''}`} role="group" aria-label="视频播放控制">
       {expanded && <div className="player-now-playing" aria-label="当前播放信息">
-        <div className="player-now-title"><strong title={seriesTitle}>{seriesTitle || '正在播放'}</strong><span>第 {currentIndex} 集</span></div>
+        <div className="player-now-title">{seriesTitle ? <FilmText as="strong" title={seriesTitle} text={seriesTitle} /> : <strong>正在播放</strong>}<span>第 {currentIndex} 集</span></div>
         <div className="player-now-meta">{formatQualityMeta(media.width, media.height)}</div>
         <time className="player-clock" dateTime={clock} aria-label={`当前时间 ${clock}`}>{clock}</time>
       </div>}

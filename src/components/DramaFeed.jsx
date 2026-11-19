@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import FilmText from '../i18n/FilmText';
 import { Film, Play, RefreshCw } from './icons';
 import RandomDrama, { DramaPoster } from './RandomDrama';
 import useMediaSources from './useMediaSources';
@@ -230,9 +231,9 @@ function DramaFeed({ active = true, onNavigate }) {
           <DramaPoster item={selected} />
           <div className="drama-feed-copy">
             <p className="drama-feed-rank">{ranking && selected.rank > 0 ? `榜单第 ${selected.rank} 名` : `本次片单第 ${index + 1} 部`}{ranking && selected.heat ? ` · ${selected.heat}` : ''}</p>
-            <h3>{selected.series_title}</h3>
+            <FilmText as="h3" text={selected.series_title} />
             <p className="drama-feed-tags">{[selected.episode_count > 0 && `${selected.episode_count} 集`, ...(selected.tags || [])].filter(Boolean).join(' · ') || `来自${sourceLabel}片单`}</p>
-            {typeof introduction === 'string' && introduction.trim() && <p className="drama-feed-intro">{introduction}</p>}
+            {typeof introduction === 'string' && introduction.trim() && <FilmText as="p" className="drama-feed-intro" text={introduction} />}
             <p className="drama-feed-play-note">在「我的剧库」选集、播放，接着上次继续看。</p>
             <div className="drama-feed-actions"><button className="btn btn-primary" disabled={resolving} onClick={startItem}><Play size={16} />{resolving ? '正在打开剧库…' : '在剧库播放'}</button>
               {resolving && <button className="btn btn-outline" onClick={() => { playController.current?.abort(); setResolving(false); setPlayError('已取消加载，可重试本剧。'); }}>取消加载</button>}</div>
@@ -248,7 +249,7 @@ function DramaFeed({ active = true, onNavigate }) {
         </div>
         {upcoming.length > 0 ? <div className="drama-feed-upcoming"><h4>接下来看看</h4><div className="drama-feed-upcoming-list">
           {upcoming.map((item, offset) => <button key={item.series_id} className="drama-feed-next" disabled={resolving} onClick={() => selectItem(index + offset + 1)}>
-            <DramaPoster item={item} /><span><strong>{item.series_title}</strong><small>{ranking && item.rank > 0 ? `榜单第 ${item.rank} 名` : `片单第 ${index + offset + 2} 部`}</small></span>
+            <DramaPoster item={item} /><span><FilmText as="strong" lazy text={item.series_title} /><small>{ranking && item.rank > 0 ? `榜单第 ${item.rank} 名` : `片单第 ${index + offset + 2} 部`}</small></span>
           </button>)}
         </div></div> : <p className="drama-feed-hint">已到本次片单末尾，换个来源，或摇一摇发现新故事。</p>}
         <p className="drama-feed-source">{ranking ? `榜单来自${catalogChannel === 'app' ? '红果 App 目录' : '红果官网公开页面'}，不是账号个性化推荐。` : `片单来自${sourceLabel}当前目录，不代表热播排名；播放以来源实际可用分集为准。`}</p>

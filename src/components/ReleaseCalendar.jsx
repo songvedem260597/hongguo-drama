@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import FilmText from '../i18n/FilmText';
 import { publicDateKey, readLocalLibrary, removeLocalSeries, saveLocalSeries, subscribeLocalLibrary } from '../localLibrary';
 import './ReleaseCalendar.css';
 
@@ -27,7 +28,7 @@ export default function ReleaseCalendar({ onPlay, opening = '', active = true })
   const favoritesCount = rows.filter(item => item.favorite).length;
   const row = item => <li key={item.id} className="release-row">
     <div className="release-poster" aria-hidden="true"><span>暂无海报</span>{item.cover && <img key={item.cover} src={item.cover} alt="" loading="lazy" onError={event => { event.currentTarget.style.display = 'none'; }} />}</div>
-    <div className="release-title"><strong>{item.title}</strong><span>{item.date ? `首次公开 ${item.date}` : '暂无首次公开时间'}</span></div>
+    <div className="release-title"><FilmText as="strong" text={item.title} /><span>{item.date ? `首次公开 ${item.date}` : '暂无首次公开时间'}</span></div>
     <div className="release-row-actions">
       <button type="button" className="btn btn-sm btn-outline" aria-label={`${item.favorite ? '取消收藏' : '收藏'}《${item.title}》`} aria-pressed={item.favorite} onClick={() => setLibrary(saveLocalSeries({ id: item.id, title: item.title, favorite: !item.favorite }))}>{item.favorite ? '已收藏' : '收藏'}</button>
       <button type="button" className="btn btn-sm btn-outline" aria-label={`移除《${item.title}》`} title="仅移除本机收藏与日历记录，不删除视频文件" onClick={() => setLibrary(removeLocalSeries(item.id))}>移除</button>

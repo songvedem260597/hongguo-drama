@@ -1,4 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import FilmText from '../i18n/FilmText';
 import { Play, RefreshCw, Clock } from './icons';
 import './WatchHistory.css';
 import { groupHistory, historyGroupSuggestions } from './historyGroups.mjs';
@@ -225,7 +226,7 @@ export default function WatchHistory({ active = true, onNavigate }) {
       <button className="history-resume" onClick={() => resume(row)} disabled={!active || !!opening || !!removing} aria-label={`继续观看 ${row.series_title} 第${row.vid_index}集${hasUpdates ? `，有更新${row.unreadEpisodes ? `，新增${row.unreadEpisodes}集` : '，发现疑似续作'}` : ''}`}>
         {row.cover ? <img className="history-cover" src={row.cover} alt="" loading="lazy" /> : <span className="history-cover history-cover-empty"><Play size={20} /></span>}
         <span className="history-copy">
-          <span className="history-name">{hasUpdates && <span className="history-dot" role="img" aria-label="有更新" />}{row.series_title}</span>
+          <span className="history-name">{hasUpdates && <span className="history-dot" role="img" aria-label="有更新" />}<FilmText lazy text={row.series_title} /></span>
           <span className="history-progress">看到第 {row.vid_index} 集 / 共 {row.total} 集 · {Math.floor((row.currentTime || 0) / 60)}:{String(Math.floor((row.currentTime || 0) % 60)).padStart(2, '0')}</span>
           <span className="history-time">最近观看 {new Date(row.updatedAt).toLocaleString('zh-CN', { month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit' })}{row.completed && <span className="history-completed"> · 已看完</span>}</span>
           {decisions[row.series_id] === null ? <span className="history-group-state">独立显示 · 手动</span> : group.length > 1 && group.some(item => Object.hasOwn(decisions, item.series_id)) && <span className="history-group-state">手动分组</span>}
@@ -247,9 +248,9 @@ export default function WatchHistory({ active = true, onNavigate }) {
         </div>
       </div>
       </div>
-      {isHead && !!sequels.length && <div className="history-sequels"><span>疑似续作</span>{sequels.map(sequel => <button key={sequel.series_id} className="btn btn-outline btn-sm" disabled={!active || !!opening || !!removing} onClick={() => resume(sequel.origin, sequel)}>{sequel.series_title}</button>)}</div>}
+      {isHead && !!sequels.length && <div className="history-sequels"><span>疑似续作</span>{sequels.map(sequel => <button key={sequel.series_id} className="btn btn-outline btn-sm" disabled={!active || !!opening || !!removing} onClick={() => resume(sequel.origin, sequel)}><FilmText lazy text={sequel.series_title} /></button>)}</div>}
       {isHead && !!similar.length && <div className="history-sequels" title="名称相近，仅供核对；不会用于隐藏低季或批量归组">
-        <span>疑似同剧（仅提示）</span>{similar.map(candidate => <button key={candidate.series_id} className="btn btn-outline btn-sm" disabled={!active || !!opening || !!removing} onClick={() => resume(candidate.origin, candidate)}>{candidate.series_title}</button>)}
+        <span>疑似同剧（仅提示）</span>{similar.map(candidate => <button key={candidate.series_id} className="btn btn-outline btn-sm" disabled={!active || !!opening || !!removing} onClick={() => resume(candidate.origin, candidate)}><FilmText lazy text={candidate.series_title} /></button>)}
         {similar.filter(candidate => rows.some(item => item.series_id === candidate.series_id)).map(candidate => <button key={`group:${candidate.series_id}`} className="btn btn-outline btn-sm" onClick={() => decide(candidate.series_id, row.series_id)}>确认《{candidate.series_title}》为同剧</button>)}
       </div>}
       {row.lastEpisodeCheckError && <p className="history-check-error">分集更新检查未完成：{row.lastEpisodeCheckError}</p>}

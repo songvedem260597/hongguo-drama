@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import FilmText from '../i18n/FilmText';
 import './HongguoDownload.css';
 import { Search, Film, RefreshCw, ExternalLink } from './icons';
 import { isSubmitKey } from './episodeRange';
@@ -410,7 +411,7 @@ function SearchPanel({ onSelectSeries, onSwitchToInput, active = true }) {
                   )}
                 </div>
                 <div className="search-card-body">
-                  <div className="search-card-title">{item.series_title}</div>
+                  <FilmText as="div" className="search-card-title" lazy text={item.series_title} />
                   <div className="search-card-sub">
                     {pickingId === item.series_id ? (
                       <>

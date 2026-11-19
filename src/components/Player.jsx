@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import FilmText from '../i18n/FilmText';
 import { createPortal } from 'react-dom';
 import useFloatingPlayer from './useFloatingPlayer';
 import useDialogKeyboard from './useDialogKeyboard';
@@ -1610,9 +1611,7 @@ function Player({ target, onNavigate, onSeriesSelected, onFloatingChange, active
       {/* 剧集选择：当前剧 + 下拉管理面板（替代原来会越堆越长的横条） */}
       <div className="player-series-row" hidden={actionsHidden}>
         <div className="player-series-current">
-          <span className="player-series-name" title={detail ? detail.series_title : ''}>
-            {detail ? detail.series_title : '—'}
-          </span>
+          <FilmText className="player-series-name" title={detail?.series_title} text={detail?.series_title || '—'} />
           <span className="player-stat">已下载 {playableCount} / {episodes.length || 0} 集</span>
         </div>
       </div>
@@ -1761,7 +1760,7 @@ function Player({ target, onNavigate, onSeriesSelected, onFloatingChange, active
                       {s.cover ? <img src={s.cover} alt="" loading="lazy" /> : <Film size={14} />}
                     </div>
                     <div className="series-row-body">
-                      <div className="series-row-title">{s.series_title}</div>
+                      <FilmText as="div" className="series-row-title" lazy text={s.series_title} />
                       <div className="series-row-sub">
                         {dl && dl.completed > 0 ? `已下载 ${dl.completed}/${dl.total} 集` : `共 ${(s.episodes || []).length} 集 · 未下载`}
                       </div>
@@ -2105,7 +2104,7 @@ function Player({ target, onNavigate, onSeriesSelected, onFloatingChange, active
       {current && (
         <div className="player-now">
           <span className="player-now-title">
-            《{detail ? detail.series_title : ''}》第 {current.vid_index} 集
+            《<FilmText text={detail?.series_title} />》第 {current.vid_index} 集
           </span>
           {current.title && <span className="player-now-sub">{current.title}</span>}
           <span className={`player-now-status status-${current.status}`}>

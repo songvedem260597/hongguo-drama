@@ -27,7 +27,14 @@ async function mount(file, api, props = {}, storage = null) {
   const requestRender = () => { queued = true; };
   const scheduleEffect = (fn, deps) => { const i = cursor++; if (changed(slots[i], deps)) { slots[i] = deps; effects.push(() => { cleanups[i]?.(); cleanups[i] = fn(); }); } };
   const react = {
-    createElement: (type, props, ...children) => ({ type, props: props || {}, children: children.flat(Infinity) }),
+    createElement(type, props, ...children) {
+      // This shallow harness reads the source text of the translated display component.
+      if (type?.name === 'FilmText') {
+        const { as = 'span', text, ...elementProps } = props;
+        return { type: as, props: elementProps, children: [text] };
+      }
+      return { type, props: props || {}, children: children.flat(Infinity) };
+    },
     Fragment: 'fragment',
     useState: initial => {
       const i = cursor++;

@@ -2,7 +2,7 @@ import viAuto from './vi-dictionary.mjs';
 import viOverrides from './vi-overrides.mjs';
 import { readMenuLanguage, normalizeMenuLanguage } from '../menuLocale.mjs';
 
-// Offline-only UI translations. User content, film names and media are not sent to a translator.
+// Static interface labels are translated from the offline dictionary.
 const translated = Object.freeze({ ...viAuto, ...viOverrides });
 const HAN = /[\u3400-\u9fff]/;
 const HAN_RUN = /[\u3400-\u9fff]+/g;
@@ -19,6 +19,13 @@ const SKIP_SELECTOR = [
 const textRecords = new WeakMap();
 const attrRecords = new WeakMap();
 let language = 'vi';
+const languageListeners = new Set();
+
+export const getDocumentLanguage = () => language;
+export function subscribeDocumentLanguage(listener) {
+  languageListeners.add(listener);
+  return () => { languageListeners.delete(listener); };
+}
 let observer = null;
 let initialTitle = null;
 let pending = new Set();
@@ -135,7 +142,11 @@ function schedule(node) {
 }
 
 export function setDocumentLanguage(next) {
-  language = normalizeMenuLanguage(next);
+  const selected = normalizeMenuLanguage(next);
+  if (selected !== language) {
+    language = selected;
+    for (const listener of languageListeners) listener();
+  }
   if (typeof document === 'undefined') return language;
   document.documentElement.lang = language === 'vi' ? 'vi' : 'zh-CN';
   if (initialTitle === null) initialTitle = document.title;

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import FilmText from '../i18n/FilmText';
 import { Film, Play, RefreshCw } from './icons';
 import useMediaSources from './useMediaSources';
 import { mediaSourceLabel } from './mediaSourcesModel.mjs';
@@ -115,7 +116,7 @@ export default function RandomDrama({ active, refreshKey = 0, onNavigate }) {
       {selected && <div className="random-drama-result" aria-live="polite">
         <DramaPoster item={selected} />
         <div className="random-drama-result-copy"><p className="drama-source-label">{sourceLabel(selected.source)} · 随机抽取</p>
-          <h3>{selected.series_title}</h3>
+          <FilmText as="h3" text={selected.series_title} />
           {selected.episode_count > 0 && <p>共 {selected.episode_count} 集</p>}
           {selected.tags?.length > 0 && <p className="random-drama-tags">{selected.tags.join(' · ')}</p>}
           <div className="random-drama-actions">

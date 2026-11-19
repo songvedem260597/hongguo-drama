@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import FilmText, { useFilmTranslation } from '../i18n/FilmText';
 import './HongguoDownload.css';
 import { Film, Download, CheckSquare, Square, RefreshCw, Folder, Link2, Search, Play } from './icons';
 import SearchPanel from './SearchPanel';
@@ -21,7 +22,8 @@ function HongguoDownload({ onNavigate, active = true }) {
   const [introExpanded, setIntroExpanded] = useState(false);
   const seriesDescription = [seriesData?.description, seriesData?.intro, seriesData?.series_intro]
     .find(value => typeof value === 'string' && value.trim())?.trim() || '';
-  const description = seriesDescription || (publicIntro?.seriesId === seriesData?.series_id ? publicIntro?.description : '') || '';
+  const originalDescription = seriesDescription || (publicIntro?.seriesId === seriesData?.series_id ? publicIntro?.description : '') || '';
+  const description = useFilmTranslation(originalDescription, active);
   const [selectedVids, setSelectedVids] = useState(new Set());
   const [rangeInput, setRangeInput] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -407,7 +409,7 @@ function HongguoDownload({ onNavigate, active = true }) {
                 </div>
               )}
               <div className="series-meta">
-                <h3 className="series-title">《{seriesData.series_title}》</h3>
+                <FilmText as="h3" className="series-title" text={seriesData.series_title} />
                 <div className="series-tags">
                   <span className="badge">{mediaSourceLabel(seriesData.series_id, mediaSources)}</span>
                   <span className="badge">共 {seriesData.total} 集</span>
