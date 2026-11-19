@@ -1,9 +1,9 @@
-.history-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 16px; }
+.history-header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--section-gap); }
 .history-header h1 { margin: 0 0 8px; }
 .history-header p, .history-hint { color: var(--text-secondary); line-height: 1.65; }
 .history-tools { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .history-scope { min-height: 38px; padding: 7px 30px 7px 11px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-input); color: var(--text-primary); }
-.history-hint { margin: 0 0 24px; max-width: 72ch; }
+.history-hint { margin: 0 0 var(--section-gap); max-width: 72ch; }
 .history-filter-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; margin-bottom: 12px; }
 .history-filter { display: flex; flex-wrap: wrap; gap: 6px; }
 .history-filter button { padding: 8px 12px; border: 1px solid transparent; border-radius: 7px; background: transparent; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
@@ -21,7 +21,7 @@
 .history-group-actions, .history-maintenance-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
 .history-group-state { font-size: var(--text-size-sm); color: var(--text-secondary); }
 .history-remove { flex-shrink: 0; }
-.history-resume { min-width: 0; display: flex; align-items: center; gap: 20px; width: 100%; padding: 8px; border: 0; border-radius: 9px; text-align: left; background: transparent; color: var(--text-primary); }
+.history-resume { min-width: 0; display: flex; align-items: center; gap: var(--space-4); width: 100%; padding: var(--space-2); border: 0; border-radius: 9px; text-align: left; background: transparent; color: var(--text-primary); }
 .history-resume:hover { background: var(--bg-inset); }
 .history-cover { width: 64px; height: 86px; flex-shrink: 0; object-fit: cover; border-radius: 7px; background: var(--bg-inset); }
 .history-cover-empty { display: grid; place-items: center; color: var(--text-secondary); }

@@ -1,14 +1,12 @@
-.custom-sources { margin: 22px 0; padding-top: 22px; padding-bottom: 22px; }
-.custom-sources-heading { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; }
+.custom-sources-heading { display: flex; align-items: center; gap: var(--space-2); }
 .custom-sources-heading h3 { font-size: var(--text-size-base); font-weight: 600; }
-.custom-sources > .settings-hint { margin: 0 0 18px; max-width: 70ch; line-height: 1.8; }
-.custom-source-form { display: grid; grid-template-columns: minmax(140px, 1fr) minmax(200px, 2fr); gap: 14px; border: 0; min-width: 0; }
+.custom-sources > .settings-hint { max-width: 70ch; line-height: 1.8; }
+.custom-source-form { display: grid; grid-template-columns: minmax(140px, 1fr) minmax(200px, 2fr); gap: var(--space-3); border: 0; min-width: 0; }
 .custom-source-form > label { display: flex; flex-direction: column; gap: 7px; min-width: 0; font-size: var(--text-size-sm); }
 .custom-source-form > .custom-source-enabled { flex-direction: row; align-items: center; }
 .custom-source-enabled input { accent-color: var(--primary); }
 .custom-source-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .custom-source-form > .custom-source-actions { justify-content: flex-end; }
-.custom-source-list { margin-top: 18px; }
 .custom-source-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 16px 0; border-top: 1px solid var(--border-muted); }
 .custom-source-info { flex: 1; min-width: 200px; }
 .custom-source-info strong { font-size: var(--text-size-base); overflow-wrap: anywhere; }

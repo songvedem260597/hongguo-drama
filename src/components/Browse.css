@@ -1,22 +1,22 @@
 
-.browse-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 32px; }
+.browse-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--section-gap); }
 .browse-title { flex: 1; min-width: min(100%, 240px); }
-.browse-header-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; max-width: 100%; }
+.browse-header-right { display: flex; align-items: center; gap: var(--space-2) var(--space-3); flex-wrap: wrap; justify-content: flex-end; max-width: 100%; }
 .browse-stat { font-size: var(--text-size-sm); color: var(--text-secondary); order: 3; }
-.browse-cats { display: flex; gap: 24px; flex-wrap: wrap; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.browse-cats { display: flex; gap: var(--space-4); flex-wrap: wrap; border-bottom: 1px solid var(--border); margin-bottom: var(--space-4); }
 .browse-cat { border: 0; border-bottom: 2px solid transparent; padding: 0 2px 12px; margin-bottom: -1px; background: transparent; color: var(--text-secondary); font-size: var(--text-size-base); font-weight: 500; }
 .browse-cat:hover { color: var(--text-primary); }
 .browse-cat.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
 .browse-nav-label { padding-top: 2px; color: var(--text-secondary); font-size: var(--text-size-sm); }
-.browse-genres { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 27px; }
-.genre-chip { padding: 5px 12px; border: 0; border-radius: 6px; background: transparent; color: var(--text-secondary); font-size: var(--text-size-sm); }
+.browse-genres { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--section-gap); }
+.genre-chip { padding: var(--space-1) var(--space-3); border: 0; border-radius: 6px; background: transparent; color: var(--text-secondary); font-size: var(--text-size-sm); }
 .genre-chip:hover { background: var(--bg-inset); }
 .genre-chip.active { background: var(--accent-soft); color: var(--accent-text); font-weight: 600; }
 .browse-loading { display: flex; gap: 10px; align-items: center; color: var(--text-secondary); padding: 22px 0; }
 .browse-update-error { display: flex; gap: 12px; align-items: center; justify-content: space-between; margin: 0 0 22px; }
 .browse-update-error span { min-width: 0; overflow-wrap: anywhere; }
 .browse-update-error .btn { flex-shrink: 0; }
-.browse-grid, .poster-skeletons { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(var(--poster-width) * var(--poster-scale))), 1fr)); gap: 26px 20px; margin-bottom: 30px; }
+.browse-grid, .poster-skeletons { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(var(--poster-width) * var(--poster-scale))), 1fr)); gap: var(--space-6) var(--space-4); margin-bottom: var(--section-gap); }
 .browse-card { display: block; text-align: left; border: 0; padding: 0; background: transparent; min-width: 0; align-self: start; }
 .browse-cover { width: 100%; position: relative; aspect-ratio: 3/4; background: var(--bg-inset); overflow: hidden; border-radius: 12px; box-shadow: 0 5px 14px #2a221713; }
 .browse-cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .24s ease-out; }
@@ -68,9 +68,9 @@
 @media (max-width: 960px) { .browse-header { align-items: flex-start; } .browse-grid, .poster-skeletons { gap: 24px 16px; } }
 
 
-.browse-source-note { margin: 0 0 18px; color: var(--text-secondary); font-size: var(--text-size-sm); }
+.browse-source-note { margin: 0 0 var(--space-4); color: var(--text-secondary); font-size: var(--text-size-sm); }
 
-.browse-completion-filter { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; font-size: var(--text-size-sm); color: var(--text-secondary); }
+.browse-completion-filter { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-3); margin-bottom: var(--space-4); font-size: var(--text-size-sm); color: var(--text-secondary); }
 .browse-completion-filter label { color: var(--text-primary); font-weight: 500; }
 .browse-completion-filter select { flex: 0 0 110px; height: 34px; padding-block: 5px; }
 .browse-completion-filter > span { line-height: 1.7; }

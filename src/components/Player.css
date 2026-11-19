@@ -598,7 +598,7 @@
 }
 
 .player-title > svg { display: none; }
-.player-header { margin-bottom: 26px; align-items: flex-start; }
+.player-header { margin-bottom: var(--section-gap); align-items: flex-start; }
 .player-header-right { gap: 6px; justify-content: flex-end; }
 .player-header-right .btn { font-size: var(--text-size-xs); padding: 6px 9px; min-height: 31px; }
 .player-stat { flex-basis: 100%; text-align: right; font-size: var(--text-size-xs); margin-bottom: 4px; }
@@ -624,7 +624,7 @@
 
 .player-episode-panel { min-width: 0; }
 .portrait-episode-heading { display: none; }
-.layout-portrait .player-header { gap: 10px; margin-bottom: 14px; }
+.layout-portrait .player-header { gap: var(--space-2); }
 .layout-portrait .player-series-row { justify-content: flex-start; flex-wrap: wrap; gap: 12px 20px; padding-bottom: 12px; }
 .layout-portrait .player-viewing-layout { display: grid; grid-template-columns: minmax(0, 1fr) 128px; gap: 14px; align-items: start; }
 .layout-portrait .player-stage:not(:fullscreen) { width: 100%; height: 100%; aspect-ratio: auto; max-height: none; margin: 0; min-height: 0; }
@@ -646,7 +646,7 @@
 
 .player-series-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .portrait-episodes-toggle { display: none; }
-.player-management { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 16px; padding: 14px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 9px; }
+.player-management { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); padding: var(--space-4); background: var(--bg-card); border: 1px solid var(--border); border-radius: 9px; }
 .player-management[hidden] { display: none; }
 .layout-portrait .player-container { height: 100%; min-height: 0; display: flex; flex-direction: column; }
 .layout-portrait .player-header { position: relative; margin: 0; }

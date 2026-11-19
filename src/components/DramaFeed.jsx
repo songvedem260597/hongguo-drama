@@ -208,7 +208,6 @@ function DramaFeed({ active = true, onNavigate }) {
     {random ? <RandomDrama active={active} refreshKey={randomRefresh} onNavigate={onNavigate} /> : <>
       {sourcesError && <p className="drama-feed-hint" role="status">来源列表更新失败，暂用上次列表；可在设置重新保存来源后重试。</p>}
       <div className="drama-feed-list-meta"><p>{ranking ? catalogChannel === 'app' ? '红果 App 热播榜' : '红果官网热播榜' : `${sourceLabel} · 来源片单`}{items.length > 0 ? ` · 本次 ${items.length} 部` : ''}</p><span>{ranking ? '按来源榜单顺序' : '按来源目录顺序，不代表热播排名'}</span></div>
-      {ranking && catalogChannel === 'app' && <p className="drama-feed-hint" role="status">快速线路只显示部分片单；需要更完整的榜单时，可在“目录线路”切换到官网。</p>}
       {(loading || sourcesLoading) && items.length === 0 && <div className="drama-feed-state" role="status"><RefreshCw size={24} className="spin" /><p>{sourcesLoading ? '正在加载来源列表…' : '正在加载真实片单…'}</p>
         {loading && !sourcesLoading && <button className="btn btn-outline" onClick={cancelLoad}>取消加载</button>}
       </div>}

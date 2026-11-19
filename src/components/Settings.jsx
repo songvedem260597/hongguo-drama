@@ -248,7 +248,7 @@ function SettingsPage({ active = true, preview = false, appInfo = null, language
       </div>
 
       <section className="settings-card" aria-label={menuLabels.languageTitle}>
-        <div className="settings-group" style={{ padding: '14px 0' }}>
+        <div className="settings-group">
           <label className="settings-label" htmlFor="menu-language">{menuLabels.languageTitle}</label>
           <select id="menu-language" className="input-field select-field" aria-label={menuLabels.languageAria}
             value={language} onChange={event => onLanguageChange?.(event.target.value)}>

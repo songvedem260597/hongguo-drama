@@ -15,7 +15,6 @@ export default {
   '红果官网热播榜': 'Bảng xếp hạng Hongguo · Trang web',
   '按来源榜单顺序': 'Theo thứ tự bảng xếp hạng của nguồn',
   '按来源目录顺序，不代表热播排名': 'Theo thứ tự danh mục nguồn',
-  '快速线路只显示部分片单；需要更完整的榜单时，可在“目录线路”切换到官网。': 'Nguồn ứng dụng có danh mục rút gọn. Để xem nhiều phim hơn, chọn “Trang web chính thức” trong mục Nguồn danh mục.',
   '在「我的剧库」选集、播放，接着上次继续看。': 'Mở thư viện phim để chọn tập hoặc xem tiếp từ lần trước.',
   '在剧库播放': 'Phát trong thư viện phim',
   '正在打开剧库…': 'Đang mở thư viện phim…',
@@ -56,7 +55,6 @@ export default {
   '点击分类或题材即可换一批，再点当前分类也能继续换；四个热播榜按来源热度顺序展示。': 'Chọn thể loại hoặc chủ đề để xem danh sách. Bấm lại mục đang chọn để sang trang sau. Các bảng xếp hạng sắp xếp theo độ phổ biến tại nguồn.',
   '“刷新片单”重新获取第一页。': ' Bấm “Làm mới danh sách phim” để về trang đầu.',
   'App 与官网的榜单、题材划分可能不同。': 'Bảng xếp hạng và chủ đề có thể khác nhau giữa ứng dụng và trang web chính thức.',
-  'App 快速线路只显示部分片单；需要更完整的目录时请切换到“官网”。': 'Nguồn ứng dụng có danh mục rút gọn. Chọn “Trang web chính thức” để xem danh mục đầy đủ.',
   '仅筛选当前页；状态未注明的剧集只在“全部”显示。': 'Chỉ lọc trang hiện tại. Phim chưa rõ trạng thái xuất hiện trong mục “Tất cả”.',
 
   '原画': 'Ảnh gốc',
